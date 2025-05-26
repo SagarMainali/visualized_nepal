@@ -18,6 +18,8 @@ export default function Sidebar() {
             <Link href='/remittance' className={isActive('/remittance')}>Remittance Inflow</Link>
             <Link href='/gasoline-price' className={isActive('/gasoline-price')}>Gasoline Prices</Link>
             <Link href='/tourism' className={isActive('/tourism')}>Tourism</Link>
+            <hr />
+            <Link href='/hospital' className={isActive('/hospital')}>Hospital</Link>
         </aside>
     )
 }

@@ -58,3 +58,7 @@ body {
 .view-options > .selected {
   @apply bg-gray-500 text-white font-medium;
 }
+
+hr{
+  @apply text-light mb-1;
+}
