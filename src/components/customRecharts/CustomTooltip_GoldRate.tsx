@@ -9,7 +9,7 @@ export default function CustomTooltip_GoldRate({ active, payload, label, dateTyp
     return (
         <div className="p-4 shadow-2xl rounded border border-light">
             {dateType && <p className="font-semibold mb-2 text-primary-gray">Date: {dateFormatter(label!, 'm/d/y', dateType)}</p>}
-            <hr className='text-light mb-1' />
+            <hr />
             <span className='text-primary-green font-semibold'>Price: {priceFormatter(value)}</span>
         </div>
     );
