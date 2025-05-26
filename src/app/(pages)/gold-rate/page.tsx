@@ -115,7 +115,7 @@ export default function GoldRate() {
     return (
         goldRatesDataFiltered
             ? (
-                <div className='h-full w-full flex flex-col justify-center items-center gap-6'>
+                <div className='h-full w-full flex flex-col justify-center items-center gap-4'>
                     <div className='w-[80%] flex flex-row-reverse'>
 
                         <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} filteredValue={filters.dateType} />
