@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@plugin 'flowbite-react/plugin/tailwindcss';
+@source '../../.flowbite-react/class-list.json';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  --color-golden: #ffd700;
+  --color-primary-blue: #1a56db;
+  --color-primary-green: #4daf73;
+  --color-primary-gray: #374151;
+  --color-light: #cad5e2;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.b {
+  border: 1px solid red;
+}
+
+aside > * {
+  @apply flex items-center gap-[6px];
+}
+
+.icon-style-default {
+  @apply text-[18px] cursor-pointer;
+}
+
+.active {
+  @apply text-primary-blue font-semibold;
+}
+
+.filter-dropdown {
+  @apply bg-gray-600 border-0 outline-none focus:ring-0 cursor-pointer;
+}
+
+.view-options {
+  @apply w-full flex items-center justify-end gap-2 font-medium text-[14px];
+}
+
+.view-options > span {
+  @apply px-4 py-2 rounded bg-gray-200 font-normal cursor-pointer;
+}
+
+.view-options > .selected {
+  @apply bg-gray-500 text-white font-medium;
+}
+
+hr {
+  @apply text-light mb-1;
+}
