@@ -40,26 +40,27 @@ export default function Hospital() {
             '45-60': 0,
             '60-75': 0,
             '75+': 0,
-        }
+        } // separate object to preserver order of the properties
 
         patientsData_All?.forEach(patientRecord => {
             const selectedCategory = patientRecord[category as ('Condition' | 'Age' | 'Procedure')]; //get selected category from the row
-            if (category === 'Condition' || category === 'Procedure') {
+
+            if (category !== 'Age') {
                 patientCount_byCategory[selectedCategory] = (patientCount_byCategory[selectedCategory] || 0) + 1;
             } else {
                 const age = patientRecord['Age'];
                 if (age < 15) {
-                    patientCount_byAge['0-15'] = (patientCount_byAge['0-15'] || 0) + 1;
+                    patientCount_byAge['0-15']++;
                 } else if (age < 30) {
-                    patientCount_byAge['15-30'] = (patientCount_byAge['15-30'] || 0) + 1;
+                    patientCount_byAge['15-30']++;
                 } else if (age < 45) {
-                    patientCount_byAge['30-45'] = (patientCount_byAge['30-45'] || 0) + 1;
+                    patientCount_byAge['30-45']++;
                 } else if (age < 60) {
-                    patientCount_byAge['45-60'] = (patientCount_byAge['45-60'] || 0) + 1;
+                    patientCount_byAge['45-60']++;
                 } else if (age < 75) {
-                    patientCount_byAge['60-75'] = (patientCount_byAge['60-75'] || 0) + 1;
+                    patientCount_byAge['60-75']++;
                 } else {
-                    patientCount_byAge['75+'] = (patientCount_byAge['75+'] || 0) + 1;
+                    patientCount_byAge['75+']++;
                 }
             }
         })
