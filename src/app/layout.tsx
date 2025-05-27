@@ -35,7 +35,9 @@ export default function RootLayout({
 
           <main className="h-full flex-1 overflow-y-auto relative flex flex-col">
             <TopNavbar />
-            {children}
+            <div className="h-full px-6 py-3">
+              {children}
+            </div>
           </main>
 
         </AppContextProvider>

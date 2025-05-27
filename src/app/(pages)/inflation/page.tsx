@@ -31,7 +31,7 @@ export default function Inflation() {
         inflationRateData_Res
             ? (
                 <div className='h-full w-full flex flex-col justify-center items-center gap-4' >
-                    <ResponsiveContainer width="80%" height="75%">
+                    <ResponsiveContainer width="90%" height="75%">
                         <LineChart data={inflationRateData_Res.inflationRateData} margin={{ bottom: 20 }}>
                             <CartesianGrid strokeDasharray="2 2" />
                             <XAxis dataKey="year" angle={-45} textAnchor="end" tickMargin={5} />
