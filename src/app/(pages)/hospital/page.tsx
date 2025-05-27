@@ -141,30 +141,34 @@ export default function Hospital() {
     return (
         patients_byCategory
             ? (
-                <div className='h-full w-full flex flex-col items-center gap-4'>
-                    <div className='w-[90%] flex flex-row-reverse gap-2'>
-                        <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
+                <div className='h-full w-full flex flex-col items-center gap-8'>
+
+                    <div className='h-full w-full flex flex-col items-center gap-4'>
+                        <div className='w-[90%] flex flex-row-reverse gap-2'>
+                            <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
+                        </div>
+
+                        <ResponsiveContainer width="90%" height="80%">
+                            <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>
+                                <XAxis
+                                    dataKey="category"
+                                    angle={-45}
+                                    textAnchor="end"
+                                    interval={0}
+                                    height={140}
+                                    tickFormatter={(value) =>
+                                        value.length > 20 ? `${value.substring(0, 10)}...` : value
+                                    }
+                                />
+                                <YAxis />
+                                <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
+                                <Legend />
+                                <CartesianGrid stroke="#f5f5f5" />
+                                <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                        <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
                     </div>
-                    <ResponsiveContainer width="90%" height="80%">
-                        <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>
-                            <XAxis
-                                dataKey="category"
-                                angle={-45}
-                                textAnchor="end"
-                                interval={0}
-                                height={140}
-                                tickFormatter={(value) =>
-                                    value.length > 20 ? `${value.substring(0, 10)}...` : value
-                                }
-                            />
-                            <YAxis />
-                            <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
-                            <Legend />
-                            <CartesianGrid stroke="#f5f5f5" />
-                            <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                    <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
                 </div>
             )
             : <Loader />
