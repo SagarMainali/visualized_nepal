@@ -14,7 +14,7 @@ export default function TopNavbar() {
     const { setIsMenuOpen } = useContext(AppContext);
 
     return (
-        <div className='py-3.5 flex justify-between px-6 bg-gray-100 shadow'>
+        <div className='py-3.5 flex justify-between px-6 bg-gray-100 shadow max-h-[58px]'>
             <FontAwesomeIcon icon={faBars} className='text-[22px] cursor-pointer text-primary-gray' onClick={() => setIsMenuOpen(prev => !prev)} />
             <span className='font-bold text-primary-blue'>{custom_pathname}</span>
             <FontAwesomeIcon icon={faGear} className='text-[22px] cursor-pointer text-primary-gray' />

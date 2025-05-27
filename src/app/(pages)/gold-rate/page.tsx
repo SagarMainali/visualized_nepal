@@ -116,14 +116,14 @@ export default function GoldRate() {
         goldRatesDataFiltered
             ? (
                 <div className='h-full w-full flex flex-col justify-center items-center gap-4'>
-                    <div className='w-[80%] flex flex-row-reverse'>
+                    <div className='w-[90%] flex flex-row-reverse'>
 
                         <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} filteredValue={filters.dateType} />
 
                         <CustomDropDown label="Set time" className='mr-2' items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} filteredValue={filters.time} />
 
                     </div>
-                    <ResponsiveContainer width="80%" height="70%">
+                    <ResponsiveContainer width="90%" height="70%">
                         <LineChart data={goldRatesDataFiltered} margin={{ right: 10, bottom: 50 }}>
                             <CartesianGrid strokeDasharray="2 2" />
                             <XAxis dataKey={filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'} angle={-45} textAnchor="end" tickMargin={5} />
@@ -134,7 +134,7 @@ export default function GoldRate() {
                         </LineChart>
                     </ResponsiveContainer>
                     <p className='text-golden text-[18px]'>Gold price of <strong className='underline'>{timeIndicator(filters.time)}</strong></p>
-                    <div className='w-[80%] relative flex justify-center'>
+                    <div className='w-[90%] relative flex justify-center'>
                         <button className='bg-primary-blue px-4 py-2 rounded font-semibold cursor-pointer text-white shadow' onClick={() => getGoldRatesDataAll()}>Get latest price</button>
                         <span className='text-[12px] text-gray-600 absolute right-0 top-[50%] -translate-y-[50%]'>
                             Last updated: {dateFormatter(appropriateDate!, 'm/d/y', filters.dateType)}

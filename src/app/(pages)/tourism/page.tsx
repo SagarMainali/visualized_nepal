@@ -55,7 +55,7 @@ export default function Tourism() {
         tourismData
             ? (
                 <div className='h-full w-full flex flex-col items-center justify-center gap-6'>
-                    <div className='w-[95%] flex flex-col items-end gap-2'>
+                    <div className='w-[90%] flex flex-col items-end gap-2'>
                         <div className='view-options'> Type
                             <span onClick={() => handleSelectionsChange('stacked')} className={selections.stacked ? 'selected' : ''}>Stacked</span>
                             <span onClick={() => handleSelectionsChange('separate')} className={!selections.stacked ? 'selected' : ''}>Separate</span>
@@ -64,7 +64,7 @@ export default function Tourism() {
                             <span onClick={() => handleSelectionsChange('trend')} className={selections.showTrend ? 'selected' : ''}>Show trend</span>
                         </div>
                     </div>
-                    <ResponsiveContainer width="85%" height="70%">
+                    <ResponsiveContainer width="90%" height="70%">
                         <ComposedChart data={tourismData} margin={{ left: 10, right: 10 }}>
                             <XAxis dataKey="year" />
                             <YAxis />
