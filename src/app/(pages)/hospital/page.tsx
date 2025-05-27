@@ -4,17 +4,13 @@ import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import axios from 'axios';
 import Loader from '@/components/Loader';
-import { Bar, CartesianGrid, BarChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import CustomTooltip_Tourism from '@/components/customRecharts/customTooltip_Tourism';
-
-interface PatientCount_ByConditionT {
-    condition: string;
-    count: number;
-}
+import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
+import CustomDropDown from '@/components/CustomDropdown';
 
 export default function Hospital() {
 
-    const [patients_byCondition, setPatients_byCondition] = useState<PatientCount_ByConditionT[] | null>(null);
+    const [patientsData_All, setPatientsData_All] = useState<PatientsDataAllT[] | null>(null);
 
     useEffect(() => {
         const fetchPatientRecords = async () => {
@@ -23,26 +19,7 @@ export default function Hospital() {
                 Papa.parse(data, {
                     header: true,
                     skipEmptyLines: true,
-                    complete: (result) => {
-                        const rows = result.data as { [key: string]: string }[];
-                        const conditionCount: Record<string, number> = {};
-
-                        rows.forEach((row) => {
-                            const condition = row.Condition;
-                            if (condition) {
-                                conditionCount[condition] = (conditionCount[condition] || 0) + 1;
-                            }
-                        })
-
-                        const patients_byCondition = Object.entries(conditionCount).map(
-                            ([condition, count]) => ({
-                                condition,
-                                count
-                            })
-                        )
-
-                        setPatients_byCondition(patients_byCondition);
-                    },
+                    complete: (result) => setPatientsData_All(result.data as PatientsDataAllT[])
                 });
             } catch (error) {
                 console.log('Failed to fetch patients records!', error);
@@ -52,61 +29,85 @@ export default function Hospital() {
         fetchPatientRecords();
     }, [])
 
-    const [selections, setSelections] = useState({
-        stacked: true,
-        showTrend: false,
-    })
+    const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
-    const handleSelectionsChange = (name: string) => {
-        setSelections(prev => {
-            if (name === 'stacked') {
-                return {
-                    ...prev,
-                    stacked: true
-                }
-            }
-            else if (name === 'separate') {
-                return {
-                    ...prev,
-                    stacked: false
-                }
-            }
-            else {
-                return {
-                    ...prev,
-                    showTrend: !prev.showTrend
+    const getPatientByCategory = (category: string) => {
+        const patientCount_byCategory: Record<string, number> = {};
+        const patientCount_byAge = {
+            '0-15': 0,
+            '15-30': 0,
+            '30-45': 0,
+            '45-60': 0,
+            '60-75': 0,
+            '75+': 0,
+        }
+
+        patientsData_All?.forEach(patientRecord => {
+            const selectedCategory = patientRecord[category as ('Condition' | 'Age' | 'Procedure')]; //get selected category from the row
+            if (category === 'Condition' || category === 'Procedure') {
+                patientCount_byCategory[selectedCategory] = (patientCount_byCategory[selectedCategory] || 0) + 1;
+            } else {
+                const age = patientRecord['Age'];
+                if (age < 15) {
+                    patientCount_byAge['0-15'] = (patientCount_byAge['0-15'] || 0) + 1;
+                } else if (age < 30) {
+                    patientCount_byAge['15-30'] = (patientCount_byAge['15-30'] || 0) + 1;
+                } else if (age < 45) {
+                    patientCount_byAge['30-45'] = (patientCount_byAge['30-45'] || 0) + 1;
+                } else if (age < 60) {
+                    patientCount_byAge['45-60'] = (patientCount_byAge['45-60'] || 0) + 1;
+                } else if (age < 75) {
+                    patientCount_byAge['60-75'] = (patientCount_byAge['60-75'] || 0) + 1;
+                } else {
+                    patientCount_byAge['75+'] = (patientCount_byAge['75+'] || 0) + 1;
                 }
             }
         })
+
+        const patientCount_byCategory_formatted = Object.entries(category === 'Age' ? patientCount_byAge : patientCount_byCategory).map(
+            ([category, count]) => ({
+                category,
+                count
+            })
+        )
+
+        setPatients_byCategory(patientCount_byCategory_formatted);
+
     }
 
+    const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
+
+    useEffect(() => {
+        getPatientByCategory(selectedCategory);
+    }, [patientsData_All, selectedCategory])
+
     return (
-        patients_byCondition
+        patients_byCategory
             ? (
                 <div className='h-full w-full flex flex-col items-center gap-4'>
-                    <div className='w-[90%] flex flex-col items-end gap-2'>
-                        <div className='view-options'> Categorized by
-                            <span onClick={() => handleSelectionsChange('Condition')} className={selections.stacked ? 'selected' : ''}>Condition</span>
-                            <span onClick={() => handleSelectionsChange('Age Group')} className={!selections.stacked ? 'selected' : ''}>Age Group</span>
-                        </div>
+                    <div className='w-[90%] flex flex-row-reverse gap-2'>
+                        <CustomDropDown label='Category' arrowIcon={true} items={['Condition', 'Age', 'Procedure']} onClickHandler={setSelectedCategory} filteredValue={selectedCategory} />
                     </div>
                     <ResponsiveContainer width="90%" height="80%">
-                        <BarChart data={patients_byCondition} margin={{ left: 10, right: 10 }}>
+                        <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>
                             <XAxis
-                                dataKey="condition"
+                                dataKey="category"
                                 angle={-45}
                                 textAnchor="end"
                                 interval={0}
                                 height={140}
+                                tickFormatter={(value) =>
+                                    value.length > 20 ? `${value.substring(0, 10)}...` : value
+                                }
                             />
                             <YAxis />
-                            <Tooltip />
+                            <Tooltip content={<CustomTooltip_Hospital />} />
                             <Legend />
                             <CartesianGrid stroke="#f5f5f5" />
                             <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
                         </BarChart>
                     </ResponsiveContainer>
-                    <p className='text-primary-gray text-[18px]'>Patients records categorized by <strong>'Condition'</strong></p>
+                    <p className='text-primary-gray text-[18px]'>Patients records categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
                 </div>
             )
             : <Loader />

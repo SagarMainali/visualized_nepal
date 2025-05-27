@@ -834,7 +834,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 847,45,Female,Appendicitis,Appendectomy,8000,62,No,Recovered,3
 848,40,Male,Fractured Leg,Cast and Physical Therapy,3000,62,No,Recovered,4
 849,78,Female,Heart Attack,Cardiac Catheterization,18000,64,Yes,Stable,2
-850,25,Male,Allergic Reaction,Epinephrine Injection,100,57,No,Recovered,5
+850,14,Male,Allergic Reaction,Epinephrine Injection,100,57,No,Recovered,5
 851,52,Female,Respiratory Infection,Antibiotics and Rest,800,58,No,Stable,4
 852,58,Male,Prostate Cancer,Radiation Therapy,20000,65,No,Recovered,3
 853,32,Female,Childbirth,Delivery and Postnatal Care,12000,59,No,Recovered,4
@@ -865,7 +865,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 878,40,Male,Fractured Leg,Cast and Physical Therapy,3000,64,No,Recovered,4
 879,78,Female,Heart Attack,Cardiac Catheterization,18000,66,Yes,Stable,2
 880,25,Male,Allergic Reaction,Epinephrine Injection,100,59,No,Recovered,5
-881,52,Female,Respiratory Infection,Antibiotics and Rest,800,60,No,Stable,4
+881,9,Female,Respiratory Infection,Antibiotics and Rest,800,60,No,Stable,4
 882,58,Male,Prostate Cancer,Radiation Therapy,20000,67,No,Recovered,3
 883,32,Female,Childbirth,Delivery and Postnatal Care,12000,61,No,Recovered,4
 884,55,Male,Kidney Stones,Lithotripsy,6000,62,No,Recovered,3
@@ -884,7 +884,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 897,67,Male,Prostate Cancer,Radiation Therapy,20000,68,No,Recovered,3
 898,35,Female,Childbirth,Delivery and Postnatal Care,12000,62,No,Recovered,4
 899,50,Male,Kidney Stones,Lithotripsy,6000,63,No,Recovered,3
-900,60,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,64,No,Stable,4
+900,8,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,64,No,Stable,4
 901,48,Female,Heart Disease,Angioplasty,15000,65,Yes,Recovered,4
 902,65,Male,Diabetes,Insulin Therapy,2000,63,No,Stable,3
 903,30,Female,Fractured Arm,X-Ray and Splint,500,61,No,Recovered,5
@@ -903,7 +903,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 917,62,Male,Diabetes,Insulin Therapy,2000,64,No,Stable,4
 918,35,Female,Fractured Arm,X-Ray and Splint,500,62,Yes,Recovered,5
 919,78,Male,Stroke,CT Scan and Medication,10000,69,No,Stable,2
-920,53,Female,Cancer,Surgery and Chemotherapy,25000,71,Yes,Recovered,4
+920,11,Female,Cancer,Surgery and Chemotherapy,25000,71,Yes,Recovered,4
 921,72,Male,Hypertension,Medication and Counseling,1000,65,No,Stable,4
 922,60,Female,Appendicitis,Appendectomy,8000,67,Yes,Recovered,3
 923,45,Male,Fractured Leg,Cast and Physical Therapy,3000,67,No,Recovered,4
@@ -925,7 +925,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 939,78,Female,Heart Attack,Cardiac Catheterization,18000,70,Yes,Stable,2
 940,25,Male,Allergic Reaction,Epinephrine Injection,100,63,No,Recovered,5
 941,52,Female,Respiratory Infection,Antibiotics and Rest,800,64,No,Stable,4
-942,58,Male,Prostate Cancer,Radiation Therapy,20000,71,No,Recovered,3
+942,10,Male,Prostate Cancer,Radiation Therapy,20000,71,No,Recovered,3
 943,32,Female,Childbirth,Delivery and Postnatal Care,12000,65,No,Recovered,4
 944,55,Male,Kidney Stones,Lithotripsy,6000,66,No,Recovered,3
 945,65,Female,Osteoarthritis,Physical Therapy and Pain Management,4000,67,No,Stable,4
@@ -962,7 +962,7 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 977,62,Male,Diabetes,Insulin Therapy,2000,68,No,Stable,4
 978,35,Female,Fractured Arm,X-Ray and Splint,500,66,Yes,Recovered,5
 979,78,Male,Stroke,CT Scan and Medication,10000,73,No,Stable,2
-980,53,Female,Cancer,Surgery and Chemotherapy,25000,75,Yes,Recovered,4
+980,11,Female,Cancer,Surgery and Chemotherapy,25000,75,Yes,Recovered,4
 981,72,Male,Hypertension,Medication and Counseling,1000,69,No,Stable,4
 982,60,Female,Appendicitis,Appendectomy,8000,71,Yes,Recovered,3
 983,45,Male,Fractured Leg,Cast and Physical Therapy,3000,71,No,Recovered,4
@@ -982,4 +982,4 @@ Patient_ID,Age,Gender,Condition,Procedure,Cost,Length_of_Stay,Readmission,Outcom
 997,45,Female,Appendicitis,Appendectomy,8000,72,No,Recovered,3
 998,40,Male,Fractured Leg,Cast and Physical Therapy,3000,72,No,Recovered,4
 999,78,Female,Heart Attack,Cardiac Catheterization,18000,74,Yes,Stable,2
-1000,25,Male,Allergic Reaction,Epinephrine Injection,100,68,No,Recovered,5
+1000,14,Male,Allergic Reaction,Epinephrine Injection,100,68,No,Recovered,5

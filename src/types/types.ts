@@ -24,7 +24,7 @@ type GoldPageFiltersT = {
 
 type CustomDropdownPropsT = {
     label: string,
-    className?: string,
+    arrowIcon?: boolean,
     items: any[],
     onClickHandler: (selected: any) => void,
     filteredValue: any
@@ -52,4 +52,22 @@ type TourismDataT = {
         number: number,
         percent: number
     }
+}
+
+type PatientsDataAllT = {
+    Patient_ID: number,
+    Age: number,
+    Gender: string,
+    Condition: string,
+    Procedure: string,
+    Cost: string,
+    Length_of_Stay: number,
+    Readmission: string,
+    Satisfaction: number
+    // [key: string]: string | number
+}
+
+type Patients_ByCategoryT = {
+    category: string,
+    count: number
 }
