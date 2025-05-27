@@ -32,6 +32,8 @@ export default function Hospital() {
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
     const getPatientByCategory = (category: string) => {
+        if (!patientsData_All) return; // stop function execution if there is no data
+
         const patientCount_byCategory: Record<string, number> = {};
         const patientCount_byAge = {
             '0-15': 0,
@@ -73,7 +75,6 @@ export default function Hospital() {
         )
 
         setPatients_byCategory(patientCount_byCategory_formatted);
-
     }
 
     const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
@@ -87,7 +88,7 @@ export default function Hospital() {
             ? (
                 <div className='h-full w-full flex flex-col items-center gap-4'>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
-                        <CustomDropDown label='Category' arrowIcon={true} items={['Condition', 'Age', 'Procedure']} onClickHandler={setSelectedCategory} filteredValue={selectedCategory} />
+                        <CustomDropDown label='Category' arrowIcon={true} items={['Condition', 'Age', 'Procedure']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
                     </div>
                     <ResponsiveContainer width="90%" height="80%">
                         <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>
@@ -102,7 +103,7 @@ export default function Hospital() {
                                 }
                             />
                             <YAxis />
-                            <Tooltip content={<CustomTooltip_Hospital />} />
+                            <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory}/>} />
                             <Legend />
                             <CartesianGrid stroke="#f5f5f5" />
                             <Bar dataKey="count" fill="#4E6688" name="Number of patients" />

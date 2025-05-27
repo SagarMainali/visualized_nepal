@@ -118,9 +118,9 @@ export default function GoldRate() {
                 <div className='h-full w-full flex flex-col justify-center items-center gap-4'>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
 
-                        <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} filteredValue={filters.dateType} />
+                        <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} selectedValue={filters.dateType} />
 
-                        <CustomDropDown label="Set time" items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} filteredValue={filters.time} />
+                        <CustomDropDown label="Set time" items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} selectedValue={filters.time} />
 
                     </div>
                     <ResponsiveContainer width="90%" height="70%">

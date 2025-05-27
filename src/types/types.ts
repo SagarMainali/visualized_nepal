@@ -9,6 +9,7 @@ type CustomTooltipT = {
     payload?: any[],
     label?: string,
     dateType?: 'AD' | 'BS',
+    selectedValue?: string
 }
 
 type CustomActiveDropT = {
@@ -27,7 +28,7 @@ type CustomDropdownPropsT = {
     arrowIcon?: boolean,
     items: any[],
     onClickHandler: (selected: any) => void,
-    filteredValue: any
+    selectedValue: any
 }
 
 type InflationRateDataT = {
