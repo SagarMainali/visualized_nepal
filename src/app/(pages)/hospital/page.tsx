@@ -19,7 +19,18 @@ export default function Hospital() {
                 Papa.parse(data, {
                     header: true,
                     skipEmptyLines: true,
-                    complete: (result) => setPatientsData_All(result.data as PatientsDataAllT[])
+                    complete: (result) => {
+                        const data = result.data as PatientsDataAllT[];
+                        const correctlyTypedData = data.map((row) => ({
+                            ...row,
+                            Patient_ID: parseInt(row.Patient_ID as unknown as string), // because .csv has only string fields even after parsing 
+                            Satisfaction: parseInt(row.Satisfaction as unknown as string),
+                            Age: parseInt(row.Age as unknown as string),
+                            Length_of_Stay: parseInt(row.Length_of_Stay as unknown as string),
+                        }));
+
+                        setPatientsData_All(correctlyTypedData);
+                    }
                 });
             } catch (error) {
                 console.log('Failed to fetch patients records!', error);
@@ -31,7 +42,7 @@ export default function Hospital() {
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
-    const getPatientByCategory = (category: string) => {
+    const getPatientsByCategory = (category: string) => {
         if (!patientsData_All) return; // stop function execution if there is no data
 
         // for objects where order doesn't matter
@@ -58,8 +69,16 @@ export default function Hospital() {
             '75+': 0,
         }
 
+        const patientCount_bySatisfaction = {
+            'Very Dissatisfied': 0,
+            'Dissatisfied': 0,
+            'Neutral': 0,
+            'Satisfied': 0,
+            'Very Satisfied': 0,
+        }
+
         patientsData_All?.forEach(patientRecord => {
-            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length_of_Stay')]; //get selected category from the row
+            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length_of_Stay' | 'Satisfaction')]; //get selected category from the row
 
             if (category === 'Condition' || category === 'Procedure') {
                 patientCount_byOtherCategory[selectedCategory] = (patientCount_byOtherCategory[selectedCategory] || 0) + 1;
@@ -86,18 +105,29 @@ export default function Hospital() {
                 else if (lengthOfStay < 75) patientCount_byLengthOfStay['60-75']++;
                 else patientCount_byLengthOfStay['75+']++;
             }
+            else if (category === 'Satisfaction') {
+                const satisfaction = patientRecord['Satisfaction'];
+
+                if (satisfaction === 1) patientCount_bySatisfaction['Very Dissatisfied']++;
+                else if (satisfaction === 2) patientCount_bySatisfaction['Dissatisfied']++;
+                else if (satisfaction === 3) patientCount_bySatisfaction['Neutral']++;
+                else if (satisfaction === 4) patientCount_bySatisfaction['Satisfied']++;
+                else patientCount_bySatisfaction['Very Satisfied']++;
+            }
         })
 
         const patientCount_byCategory_formatted = Object.entries(category === 'Age'
             ? patientCount_byAge
             : category === 'Length of Stay'
                 ? patientCount_byLengthOfStay
-                : patientCount_byOtherCategory).map(
-                    ([category, count]) => ({
-                        category,
-                        count
-                    })
-                )
+                : category === 'Satisfaction'
+                    ? patientCount_bySatisfaction
+                    : patientCount_byOtherCategory).map(
+                        ([category, count]) => ({
+                            category,
+                            count
+                        })
+                    )
 
         setPatients_byCategory(patientCount_byCategory_formatted);
     }
@@ -105,7 +135,7 @@ export default function Hospital() {
     const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
 
     useEffect(() => {
-        getPatientByCategory(selectedCategory);
+        getPatientsByCategory(selectedCategory);
     }, [patientsData_All, selectedCategory])
 
     return (
@@ -113,7 +143,7 @@ export default function Hospital() {
             ? (
                 <div className='h-full w-full flex flex-col items-center gap-4'>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
-                        <CustomDropDown label='Category' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
+                        <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
                     </div>
                     <ResponsiveContainer width="90%" height="80%">
                         <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>

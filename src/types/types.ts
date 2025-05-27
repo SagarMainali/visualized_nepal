@@ -68,6 +68,10 @@ type PatientsDataAllT = {
     // [key: string]: string | number
 }
 
+type PatientsDataReq_ResultT = {
+    data: PatientsDataAllT[]
+}
+
 type Patients_ByCategoryT = {
     category: string,
     count: number
