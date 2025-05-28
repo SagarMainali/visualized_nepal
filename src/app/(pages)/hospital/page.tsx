@@ -12,6 +12,7 @@ export default function Hospital() {
 
     const [patientsData_All, setPatientsData_All] = useState<PatientsDataAllT[] | null>(null);
 
+    // fetch all patiens data initially
     useEffect(() => {
         const fetchPatientRecords = async () => {
             try {
@@ -41,6 +42,11 @@ export default function Hospital() {
     }, [])
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
+
+    const [patients_byCategory_test, setPatients_byCategory_test] = useState<{
+        barChart: Patients_ByCategoryT[],
+        pieChart: Patients_ByCategoryT[]
+    } | null>(null);
 
     const getPatientsByCategory = (category: string) => {
         if (!patientsData_All) return; // stop function execution if there is no data
@@ -134,6 +140,11 @@ export default function Hospital() {
 
     const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
 
+    const [selectedCategory_test, setSelectedCategory_test] = useState({
+        barChart: 'Condition',
+        pieChart: 'Gender'
+    });
+
     useEffect(() => {
         getPatientsByCategory(selectedCategory);
     }, [patientsData_All, selectedCategory])
@@ -141,15 +152,15 @@ export default function Hospital() {
     return (
         patients_byCategory
             ? (
-                <div className='h-full w-full flex flex-col items-center gap-8'>
+                <div className='h-auto w-full flex flex-col items-center gap-8'>
 
-                    <div className='h-full w-full flex flex-col items-center gap-4'>
+                    <div className='h-screen w-full flex flex-col items-center'>
                         <div className='w-[90%] flex flex-row-reverse gap-2'>
                             <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
                         </div>
 
                         <ResponsiveContainer width="90%" height="80%">
-                            <BarChart data={patients_byCategory} margin={{ left: 10, right: 10 }}>
+                            <BarChart data={patients_byCategory}>
                                 <XAxis
                                     dataKey="category"
                                     angle={-45}
@@ -169,6 +180,34 @@ export default function Hospital() {
                         </ResponsiveContainer>
                         <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
                     </div>
+
+                    <div className='h-screen w-full flex flex-col items-center'>
+                        <div className='w-[90%] flex flex-row-reverse gap-2'>
+                            <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
+                        </div>
+
+                        <ResponsiveContainer width="90%" height="80%">
+                            <BarChart data={patients_byCategory}>
+                                <XAxis
+                                    dataKey="category"
+                                    angle={-45}
+                                    textAnchor="end"
+                                    interval={0}
+                                    height={140}
+                                    tickFormatter={(value) =>
+                                        value.length > 20 ? `${value.substring(0, 10)}...` : value
+                                    }
+                                />
+                                <YAxis />
+                                <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
+                                <Legend />
+                                <CartesianGrid stroke="#f5f5f5" />
+                                <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                        <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
+                    </div>
+
                 </div>
             )
             : <Loader />

@@ -27,15 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased box-border flex h-screen overflow-hidden`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased box-border h-screen flex`}>
 
         <AppContextProvider>
 
           <Sidebar />
 
-          <main className="h-full flex-1 overflow-y-auto relative flex flex-col">
+          <main className="h-full flex-1 flex flex-col">
             <TopNavbar />
-            <div className="h-full px-6 py-3">
+            <div className="flex-1 px-6 py-3 overflow-auto">
               {children}
             </div>
           </main>

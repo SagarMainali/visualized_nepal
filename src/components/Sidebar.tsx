@@ -13,10 +13,10 @@ export default function Sidebar() {
 
     const isActive = (path: string) => path === pathname ? 'active' : '';
 
-    const {isMenuOpen} = useContext(AppContext);
+    const { isMenuOpen } = useContext(AppContext);
 
     return (
-        <aside className={`h-full overflow-hidden border border-r-2 border-r-slate-200 shadow-2xl flex flex-col p-4 gap-3 text-primary-gray font-semibold ${isMenuOpen ? 'w-[250px]' : 'w-[60px] items-center'}`}>
+        <aside className={`h-screen border border-r-2 border-r-slate-200 shadow-2xl flex flex-col p-4 gap-3 text-primary-gray font-semibold ${isMenuOpen ? 'w-[250px]' : 'w-[60px] items-center'}`}>
             <Link href='/' className={`${isActive('/')}`}>
                 <FontAwesomeIcon icon={faChartSimple} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Dashboard</span>
