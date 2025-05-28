@@ -3,10 +3,9 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import axios from 'axios';
-import Loader from '@/components/Loader';
-import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
-import CustomDropDown from '@/components/CustomDropdown';
+import Barchart from './Barchart';
+import Piechart from './Piechart';
+import Radarchart from './Radarchart';
 
 export default function Hospital() {
 
@@ -41,16 +40,7 @@ export default function Hospital() {
         fetchPatientRecords();
     }, [])
 
-    const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
-
-    const [patients_byCategory_test, setPatients_byCategory_test] = useState<{
-        barChart: Patients_ByCategoryT[],
-        pieChart: Patients_ByCategoryT[]
-    } | null>(null);
-
-    const getPatientsByCategory = (category: string) => {
-        if (!patientsData_All) return; // stop function execution if there is no data
-
+    const getPatientsByCategory = (category: string): Patients_ByCategoryT[] => {
         // for objects where order doesn't matter
         const patientCount_byOtherCategory: Record<string, number> = {};
 
@@ -84,12 +74,10 @@ export default function Hospital() {
         }
 
         patientsData_All?.forEach(patientRecord => {
-            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length_of_Stay' | 'Satisfaction')]; //get selected category from the row
+            // from the selected category by the user, get its value
+            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length_of_Stay' | 'Satisfaction')];
 
-            if (category === 'Condition' || category === 'Procedure') {
-                patientCount_byOtherCategory[selectedCategory] = (patientCount_byOtherCategory[selectedCategory] || 0) + 1;
-            }
-            else if (category === 'Age') {
+            if (category === 'Age') {
                 const age = patientRecord['Age'];
 
                 if (age < 15) patientCount_byAge['0-15']++;
@@ -120,6 +108,10 @@ export default function Hospital() {
                 else if (satisfaction === 4) patientCount_bySatisfaction['Satisfied']++;
                 else patientCount_bySatisfaction['Very Satisfied']++;
             }
+            else { //for all other categories where grouping isn't required and order doesn't matter
+                // count the number of selected category which is also the number of patients for that particular category
+                patientCount_byOtherCategory[selectedCategory] = (patientCount_byOtherCategory[selectedCategory] || 0) + 1;
+            }
         })
 
         const patientCount_byCategory_formatted = Object.entries(category === 'Age'
@@ -135,81 +127,21 @@ export default function Hospital() {
                         })
                     )
 
-        setPatients_byCategory(patientCount_byCategory_formatted);
+        return patientCount_byCategory_formatted;
     }
 
-    const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
-
-    const [selectedCategory_test, setSelectedCategory_test] = useState({
-        barChart: 'Condition',
-        pieChart: 'Gender'
-    });
-
-    useEffect(() => {
-        getPatientsByCategory(selectedCategory);
-    }, [patientsData_All, selectedCategory])
-
     return (
-        patients_byCategory
-            ? (
-                <div className='h-auto w-full flex flex-col items-center gap-8'>
+        <div className='h-auto w-full flex flex-col items-center gap-8'>
+            {patientsData_All
+                &&
+                <>
+                    <Barchart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
 
-                    <div className='h-screen w-full flex flex-col items-center'>
-                        <div className='w-[90%] flex flex-row-reverse gap-2'>
-                            <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
-                        </div>
+                    <Piechart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
 
-                        <ResponsiveContainer width="90%" height="80%">
-                            <BarChart data={patients_byCategory}>
-                                <XAxis
-                                    dataKey="category"
-                                    angle={-45}
-                                    textAnchor="end"
-                                    interval={0}
-                                    height={140}
-                                    tickFormatter={(value) =>
-                                        value.length > 20 ? `${value.substring(0, 10)}...` : value
-                                    }
-                                />
-                                <YAxis />
-                                <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
-                                <Legend />
-                                <CartesianGrid stroke="#f5f5f5" />
-                                <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                        <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
-                    </div>
-
-                    <div className='h-screen w-full flex flex-col items-center'>
-                        <div className='w-[90%] flex flex-row-reverse gap-2'>
-                            <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
-                        </div>
-
-                        <ResponsiveContainer width="90%" height="80%">
-                            <BarChart data={patients_byCategory}>
-                                <XAxis
-                                    dataKey="category"
-                                    angle={-45}
-                                    textAnchor="end"
-                                    interval={0}
-                                    height={140}
-                                    tickFormatter={(value) =>
-                                        value.length > 20 ? `${value.substring(0, 10)}...` : value
-                                    }
-                                />
-                                <YAxis />
-                                <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
-                                <Legend />
-                                <CartesianGrid stroke="#f5f5f5" />
-                                <Bar dataKey="count" fill="#4E6688" name="Number of patients" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                        <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
-                    </div>
-
-                </div>
-            )
-            : <Loader />
+                    <Radarchart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
+                </>
+            }
+        </div>
     )
 }

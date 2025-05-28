@@ -27,7 +27,7 @@ type CustomDropdownPropsT = {
     label: string,
     arrowIcon?: boolean,
     items: any[],
-    onClickHandler: (selected: any) => void,
+    onClickHandler: React.Dispatch<React.SetStateAction<any>>,
     selectedValue: any
 }
 
@@ -68,11 +68,12 @@ type PatientsDataAllT = {
     // [key: string]: string | number
 }
 
-type PatientsDataReq_ResultT = {
-    data: PatientsDataAllT[]
-}
-
 type Patients_ByCategoryT = {
     category: string,
     count: number
+}
+
+type ChartPropsT = {
+    patientsData_All: PatientsDataAllT[],
+    getPatientsByCategory: (category: string) => Patients_ByCategoryT[]
 }
