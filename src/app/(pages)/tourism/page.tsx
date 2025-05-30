@@ -3,7 +3,7 @@
 import Loader from '@/components/Loader';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, Brush, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import CustomTooltip_Tourism from '@/components/customRecharts/customTooltip_Tourism';
 
 export default function Tourism() {
@@ -76,6 +76,7 @@ export default function Tourism() {
                             {
                                 selections.showTrend && <Line dataKey="total" type="monotone" stroke="#328E6E" strokeWidth={2} name="Total arrivals" />
                             }
+                            <Brush dataKey="year" height={30} stroke="#8884d8" />
                         </ComposedChart>
                     </ResponsiveContainer>
                     <p className='text-primary-gray text-[18px]'>Tourism Arrival in Nepal from <strong>1963</strong> to <strong>2023</strong></p>

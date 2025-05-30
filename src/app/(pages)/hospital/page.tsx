@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import axios from 'axios';
-import Barchart from './Barchart';
-import Piechart from './Piechart';
-import Radarchart from './Radarchart';
+import Barchart from './Barchart_Hospital';
+import Piechart from './Piechart_Hospital';
+import Radarchart from './Radarchart_Hospital';
 
 export default function Hospital() {
 
@@ -131,7 +131,7 @@ export default function Hospital() {
     }
 
     return (
-        <div className='h-auto w-full flex flex-col items-center gap-8'>
+        <div className='h-auto w-full flex flex-col items-center gap-6'>
             {patientsData_All
                 &&
                 <>

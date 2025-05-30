@@ -4,7 +4,7 @@ import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
 import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-export default function Barchart({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
+export default function Barchart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
@@ -18,14 +18,14 @@ export default function Barchart({ patientsData_All, getPatientsByCategory }: Ch
     }, [patientsData_All, selectedCategory])
 
     return (
-        <div className='h-screen w-full flex flex-col items-center'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4'>
             {patients_byCategory
                 ? (<>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
                         <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction', 'Gender', 'Readmission', 'Outcome']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
                     </div>
 
-                    <ResponsiveContainer width="90%" height="80%">
+                    <ResponsiveContainer width="90%" height="85%">
                         <BarChart data={patients_byCategory}>
                             <XAxis
                                 dataKey="category"

@@ -3,7 +3,7 @@ import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
 import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
 
-export default function Piechart({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
+export default function Piechart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
@@ -19,7 +19,7 @@ export default function Piechart({ patientsData_All, getPatientsByCategory }: Ch
     const COLORS = ['#FFAAAA', '#648DB3', '#7F55B1', '#537D5D', '#48A6A7', '#7F8CAA', '#948979', '#A4B465', '#A2B9A7', '#FF6363', '#67AE6E', '#9FB3DF', '#97866A', '#D4C9BE', '#27548A'];
 
     return (
-        <div className='h-screen w-full flex flex-col items-center'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4'>
             {patients_byCategory
                 ? (<>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>

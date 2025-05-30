@@ -3,7 +3,7 @@
 import Loader from '@/components/Loader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea } from 'recharts';
 import CustomTooltip_InflationRate from '@/components/customRecharts/CustomTooltip_InflationRate';
 import CustomActiveDot from '@/components/customRecharts/customActiveDot';
 import { dateFormatter } from '@/helper/formatters';
@@ -39,6 +39,7 @@ export default function Inflation() {
                             <Tooltip content={<CustomTooltip_InflationRate />} />
                             <Legend verticalAlign='top' height={30} />
                             <Line dataKey="value" stroke="#155dfc " strokeWidth={2} activeDot={<CustomActiveDot />} dot={false} type="monotone" name='Rate' />
+                            <ReferenceArea y1={1} y2={3} fill='green' fillOpacity={0.2} />
                         </LineChart>
                     </ResponsiveContainer>
                     <p className='text-primary-blue text-[18px]'>Inflation rate in (%) according to Consumer Price Index(CPI)</p>
