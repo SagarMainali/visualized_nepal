@@ -70,3 +70,10 @@ aside > * {
 hr {
   @apply text-light mb-1;
 }
+
+.chart-label{
+  @apply text-primary-gray text-[16px] font-semibold bg-slate-100 text-center py-2 px-8 rounded;
+}
+
+
+

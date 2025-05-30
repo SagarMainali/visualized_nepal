@@ -131,7 +131,7 @@ export default function Hospital() {
     }
 
     return (
-        <div className='h-auto w-full flex flex-col items-center gap-6'>
+        <div className='h-auto w-full flex flex-col items-center'>
             {patientsData_All
                 &&
                 <>

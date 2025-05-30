@@ -7,7 +7,7 @@ export default function Radarchart_Hospital({ patientsData_All, getPatientsByCat
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
-    const [selectedCategory, setSelectedCategory] = useState<string>('Condition');
+    const [selectedCategory, setSelectedCategory] = useState<string>('Satisfaction');
 
     useEffect(() => {
         if (patientsData_All) {
@@ -17,23 +17,23 @@ export default function Radarchart_Hospital({ patientsData_All, getPatientsByCat
     }, [patientsData_All, selectedCategory])
 
     return (
-        <div className='h-[93vh] w-full flex flex-col items-center py-4'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
             {patients_byCategory
                 ? (<>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
                         <CustomDropDown label='Categorize patients by' arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction']} onClickHandler={setSelectedCategory} selectedValue={selectedCategory} />
                     </div>
 
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="85%">
                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={patients_byCategory}>
                             <PolarGrid />
                             <PolarAngleAxis dataKey="category" />
                             <PolarRadiusAxis />
                             <Radar dataKey="count" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} name='Patients numbers' />
-                            <Legend />
+                            {/* <Legend /> */}
                         </RadarChart>
                     </ResponsiveContainer>
-                    <p className='text-primary-gray text-[18px]'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
+                    <p className='chart-label'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
                 </>)
                 : <Loader />
             }
