@@ -2,7 +2,7 @@ import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
-import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell, Sector } from 'recharts';
 
 export default function Piechart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
@@ -30,7 +30,12 @@ export default function Piechart_Hospital({ patientsData_All, getPatientsByCateg
                     <ResponsiveContainer width='100%' height='80%'>
                         <PieChart data={patients_byCategory}>
                             <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
-                            <Pie data={patients_byCategory} dataKey="count" nameKey="category"
+                            <Pie data={patients_byCategory} dataKey="count" nameKey="category" className='focus:outline-none'
+                                activeShape={(props: any) => (
+                                    <Sector {...props} outerRadius={props.outerRadius + 10} innerRadius={props.innerRadius + 15} />
+                                )}
+                                animationBegin={0}
+                                animationDuration={500}
                                 cx="50%"
                                 cy="50%"
                                 outerRadius='80%'

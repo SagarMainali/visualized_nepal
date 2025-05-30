@@ -2,7 +2,7 @@ import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
-import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList } from 'recharts';
+import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label } from 'recharts';
 
 export default function Barchart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
@@ -29,19 +29,21 @@ export default function Barchart_Hospital({ patientsData_All, getPatientsByCateg
                     </div>
 
                     <ResponsiveContainer width="90%" height="85%">
-                        <BarChart data={patients_byCategory} margin={{ top: 20 }}>
+                        <BarChart data={patients_byCategory} margin={{ top: 20, left: 10 }}>
                             <XAxis
                                 dataKey="category"
                                 angle={isSelectedCategoryLabelLong ? -45 : 0}
                                 textAnchor={isSelectedCategoryLabelLong ? 'end' : 'middle'}
                                 interval={0}
-                                height={isSelectedCategoryLabelLong ? 120 : 50}
+                                height={isSelectedCategoryLabelLong ? 140 : 50}
                                 tickFormatter={(value) =>
                                     value.length > 20 ? `${value.substring(0, 10)}...` : value
                                 }
                                 tickMargin={isSelectedCategoryLabelLong ? 5 : 10}
-                            />
-                            <YAxis />
+                            >
+                                <Label value={selectedCategory} position="insideBottom"/>
+                            </XAxis>
+                            <YAxis label={{ value: 'No. of Patients', angle: -90, position: 'insideLeft' }} />
                             <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
                             {/* <Legend verticalAlign='top'/> */}
                             <CartesianGrid stroke="#f5f5f5" />
