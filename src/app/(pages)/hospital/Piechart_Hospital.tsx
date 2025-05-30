@@ -1,4 +1,5 @@
 import CustomDropDown from '@/components/CustomDropdown';
+import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
 import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
@@ -27,15 +28,15 @@ export default function Piechart_Hospital({ patientsData_All, getPatientsByCateg
                     </div>
 
                     <ResponsiveContainer width='100%' height='80%'>
-                        <PieChart>
-                            <Tooltip />
+                        <PieChart data={patients_byCategory}>
+                            <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
                             <Pie data={patients_byCategory} dataKey="count" nameKey="category"
                                 cx="50%"
                                 cy="50%"
                                 outerRadius='80%'
                                 label={({ category, percent }) => `${category}: ${(percent * 100).toFixed(0)}%`} >
                                 {(patients_byCategory && patients_byCategory.length > 0) && (
-                                    patients_byCategory.map((entry, index) => (
+                                    patients_byCategory.map((_entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))
                                 )}

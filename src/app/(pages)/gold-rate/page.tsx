@@ -125,7 +125,7 @@ export default function GoldRate() {
 
                     </div>
                     <ResponsiveContainer width="90%" height="70%">
-                        <LineChart data={goldRatesDataFiltered} margin={{ right: 10, bottom: 50 }}>
+                        <LineChart data={goldRatesDataFiltered} margin={{ right: 20, bottom: 50 }}>
                             <CartesianGrid strokeDasharray="2 2" />
                             <XAxis dataKey={filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'} angle={-45} textAnchor="end" tickMargin={5} />
                             <YAxis domain={['auto', 'auto']} tickFormatter={(value) => `${(value / 1000)}k`} />

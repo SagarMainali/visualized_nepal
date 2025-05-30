@@ -7,7 +7,6 @@ type GoldRateDataT = {
 type CustomTooltipT = {
     active?: boolean,
     payload?: any[],
-    label?: string,
     dateType?: 'AD' | 'BS',
     selectedValue?: string
 }
