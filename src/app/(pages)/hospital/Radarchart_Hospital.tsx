@@ -1,7 +1,8 @@
 import CustomDropDown from '@/components/CustomDropdown';
+import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
-import { Legend, ResponsiveContainer, Tooltip, RadarChart, PolarGrid, PolarAngleAxis, Radar, PolarRadiusAxis } from 'recharts';
+import { ResponsiveContainer, Tooltip, RadarChart, PolarGrid, PolarAngleAxis, Radar, PolarRadiusAxis } from 'recharts';
 
 export default function Radarchart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
@@ -30,7 +31,7 @@ export default function Radarchart_Hospital({ patientsData_All, getPatientsByCat
                             <PolarAngleAxis dataKey="category" />
                             <PolarRadiusAxis />
                             <Radar dataKey="count" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} name='Patients numbers' />
-                            {/* <Legend /> */}
+                            <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
                         </RadarChart>
                     </ResponsiveContainer>
                     <p className='chart-label'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>

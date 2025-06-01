@@ -9,7 +9,7 @@ export default function Barchart_Tourism() {
     const [tourismData, setTourismData] = useState<TourismDataT[] | null>(null);
 
     const [selections, setSelections] = useState({
-        stacked: true,
+        type: 'stacked',
         showTrend: false,
     })
 
@@ -31,13 +31,13 @@ export default function Barchart_Tourism() {
             if (name === 'stacked') {
                 return {
                     ...prev,
-                    stacked: true
+                    type: 'stacked'
                 }
             }
             else if (name === 'separate') {
                 return {
                     ...prev,
-                    stacked: false
+                    type: 'separate'
                 }
             }
             else {
@@ -52,11 +52,11 @@ export default function Barchart_Tourism() {
     return (
         tourismData
             ? (
-                <div className='h-[93vh] w-full flex flex-col items-center justify-center gap-6'>
+                <div className='h-[93vh] w-full flex flex-col items-center gap-6 py-4'>
                     <div className='w-[90%] flex flex-col items-end gap-2 mr-[80px]'>
                         <div className='view-options'> Type
-                            <span onClick={() => handleSelectionsChange('stacked')} className={selections.stacked ? 'selected' : ''}>Stacked</span>
-                            <span onClick={() => handleSelectionsChange('separate')} className={!selections.stacked ? 'selected' : ''}>Separate</span>
+                            <span onClick={() => handleSelectionsChange('stacked')} className={selections.type === 'stacked' ? 'selected' : ''}>Stacked</span>
+                            <span onClick={() => handleSelectionsChange('separate')} className={selections.type === 'separate' ? 'selected' : ''}>Separate</span>
                         </div>
                         <div className='view-options'> View
                             <span onClick={() => handleSelectionsChange('trend')} className={selections.showTrend ? 'selected' : ''}>Show trend</span>
@@ -69,8 +69,8 @@ export default function Barchart_Tourism() {
                             <Tooltip content={<CustomTooltip_Tourism />} />
                             <Legend />
                             <CartesianGrid stroke="#f5f5f5" />
-                            <Bar dataKey="byAir.number" fill="#4E6688" name="Arrival by air" stackId={selections.stacked ? 'a' : undefined} />
-                            <Bar dataKey="byLand.number" fill="#FE5D26" name="Arrival by Land" stackId={selections.stacked ? 'a' : undefined} />
+                            <Bar dataKey="byAir.number" fill="#4E6688" name="Arrival by air" stackId={selections.type === 'stacked' ? 'a' : undefined} />
+                            <Bar dataKey="byLand.number" fill="#FE5D26" name="Arrival by Land" stackId={selections.type === 'stacked' ? 'a' : undefined} />
                             {
                                 selections.showTrend && <Line dataKey="total" type="monotone" stroke="#328E6E" strokeWidth={2} name="Total arrivals" />
                             }
