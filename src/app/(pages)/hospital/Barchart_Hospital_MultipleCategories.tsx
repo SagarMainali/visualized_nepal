@@ -1,7 +1,7 @@
 import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital_MultipleCategories from '@/components/customRecharts/customTooltip_Hospital_MultipleCategories';
 import Loader from '@/components/Loader';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Bar, CartesianGrid, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label, Legend, Cell } from 'recharts';
 
 export default function Barchart_Hospital_MultipleCategories({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
@@ -87,6 +87,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
     const longLabelCategories = ['Condition', 'Procedure'];
     const isSelectedCategoryLabelLong = longLabelCategories.includes(firstCategory);
 
+    const dynamicChart_ref = useRef<HTMLDivElement | null>(null);
     const [selectedGroupData, setSelectedGroupData] = useState<SelectedGroupDataT | null>(null);
 
     const handleBarClick = (data: any) => {
@@ -108,6 +109,13 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
             satisfaction: selectedBarData_refined
         })
     };
+
+    // automatically scroll to the dynamic chart
+    useEffect(() => {
+        if (selectedGroupData && dynamicChart_ref.current) {
+            dynamicChart_ref.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [selectedGroupData])
 
     return (
         <div className='h-auto w-full '>
@@ -157,7 +165,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
                     </div>
 
                     {selectedGroupData && (
-                        <div className='h-[90vh] w-full flex flex-col items-center py-4 gap-2'>
+                        <div className='h-[90vh] w-full flex flex-col items-center py-4 gap-2' ref={dynamicChart_ref}>
                             <ResponsiveContainer width="80%" height="100%">
                                 <BarChart data={selectedGroupData.satisfaction} margin={{ top: 30, left: 10 }}>
                                     <XAxis dataKey="satisfactionLabel" height={60} tickMargin={5}>
