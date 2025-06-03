@@ -15,25 +15,9 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
 
         const firstCategoryData_Arr = getPatientsByCategory(firstCategory);
 
-        // const categories_Arr: string[] = [];
-
-        //  extract categories(conditions or procedures) from the patient record
-        // patientsData_All.forEach(patientRecord => {
-        //     const category = patientRecord[firstCategory] as string;
-
-        //     if (!categories_Arr.includes(category)) {
-        //         categories_Arr.push(category)
-        //     }
-        // })
-
-        // type SatisfactionLabel = 'Very Dissatisfied' | 'Dissatisfied' | 'Neutral' | 'Satisfied' | 'Very Satisfied';
-        // type CategorySatisfactionCount = Record<SatisfactionLabel, number>;
-
         const patients_byMultipleCategories: Record<string, any> = {};
 
-        // console.log('fcd_arr:', firstCategoryData_Arr)
-
-        const categoryCounts: number[] = [];
+        const categoryCounts: number[] = []; // categories count in a separate field - this is to be added later after the required object has been created
 
         firstCategoryData_Arr.forEach(fcd => {
             const { category, count } = fcd;
@@ -91,8 +75,6 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
             })
         )
 
-        // console.log('formatted', patientCount_byMultipleCategories_formatted);
-
         setPatients_byMultipleCategories(patientCount_byMultipleCategories_formatted);
     }
 
@@ -100,7 +82,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
         if (patientsData_All) {
             getPatientsByMultipleCategories();
         }
-    }, [patientsData_All])
+    }, [patientsData_All, firstCategory])
 
     const longLabelCategories = ['Condition', 'Procedure'];
     const isSelectedCategoryLabelLong = longLabelCategories.includes(firstCategory);
@@ -109,11 +91,11 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
         <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
             {patients_byMultipleCategories
                 ? (<>
-                    <div className='w-[90%] flex gap-2 items-center'>
-                        <CustomDropDown label={firstCategory} arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction', 'Gender', 'Readmission', 'Outcome']} onClickHandler={setFirstCategory} selectedValue={firstCategory} />
+                    <div className='w-[90%] flex gap-2 items-center justify-end'>
+                        <CustomDropDown label={firstCategory} arrowIcon={true} items={['Condition', 'Procedure', 'Gender', 'Readmission', 'Outcome']} onClickHandler={setFirstCategory} selectedValue={firstCategory} />
                         <span className='font-semibold'>vs</span>
-                        <CustomDropDown label={secondCategory} arrowIcon={true} items={['Condition', 'Age', 'Procedure', 'Length of Stay', 'Satisfaction', 'Gender', 'Readmission', 'Outcome']} onClickHandler={setSecondCategory} selectedValue={secondCategory} />
-                        <button className='bg-primary-blue px-6 py-2 ml-auto text-white rounded-lg cursor-pointer font-semibold' onClick={getPatientsByMultipleCategories}>Compare</button>
+                        <CustomDropDown label={secondCategory} arrowIcon={true} items={['Satisfaction']} onClickHandler={setSecondCategory} selectedValue={secondCategory} />
+                        {/* <button className='bg-primary-blue px-6 py-2 ml-auto text-white rounded-lg cursor-pointer font-semibold' onClick={getPatientsByMultipleCategories}>Compare</button> */}
                     </div>
 
                     <ResponsiveContainer width="90%" height="85%">
@@ -134,7 +116,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
 
                             <YAxis label={{ value: 'No. of patients', angle: -90, position: 'insideLeft' }} />
 
-                            <Tooltip content={<CustomTooltip_Hospital_MultipleCategories selectedValue={`${firstCategory} vs ${secondCategory}`} />} />
+                            <Tooltip content={<CustomTooltip_Hospital_MultipleCategories selectedValue={firstCategory} selectedValue2={secondCategory}/>} />
 
                             <Legend />
 

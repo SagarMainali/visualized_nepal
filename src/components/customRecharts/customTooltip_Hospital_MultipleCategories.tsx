@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CustomTooltip_Hospital_MultipleCategories({ active, payload, selectedValue }: CustomTooltipT) {
+export default function CustomTooltip_Hospital_MultipleCategories({ active, payload, selectedValue, selectedValue2 }: CustomTooltipT) {
 
     if (!active || !payload || !payload.length) return null;
 
@@ -8,6 +8,7 @@ export default function CustomTooltip_Hospital_MultipleCategories({ active, payl
 
     return (
         <div className="px-5 py-4 shadow-2xl rounded border border-light flex flex-col bg-slate-50/90">
+            <p className="font-semibold mb-1 text-primary-gray underline underline-offset-2">Comparision: {selectedValue} vs {selectedValue2!}</p>
             <p className="font-semibold mb-1 text-primary-gray">{selectedValue}: {category}</p>
             <hr />
             <span className='font-semibold text-[#497D74]'>Very Satisfied: {satisfaction['Very Satisfied']}</span>
