@@ -121,7 +121,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
     }, [selectedGroupData])
 
     return (
-        <div className='h-auto w-full '>
+        <div className='h-auto w-full'>
             {patients_byMultipleCategories
                 ? (<>
                     <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
@@ -164,11 +164,11 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
-                        <p className='chart-label'>Number of patients categorized by <strong>'{firstCategory}' vs '{secondCategory}'</strong></p>
+                        <p className='chart-label'>Number of patients categorized by <strong>'{firstCategory}'</strong> vs <strong>'{secondCategory}'</strong></p>
                     </div>
 
                     {selectedGroupData && (
-                        <div className='h-[90vh] w-full flex flex-col items-center py-4 gap-2' ref={dynamicChart_ref}>
+                        <div className='h-[75vh] w-full flex flex-col items-center py-4 gap-2 mt-1' ref={dynamicChart_ref}>
                             <ResponsiveContainer width="80%" height="100%">
                                 <BarChart data={selectedGroupData.satisfaction} margin={{ top: 30, left: 10 }}>
                                     <XAxis dataKey="satisfactionLabel" height={60} tickMargin={5}>
@@ -179,16 +179,15 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
 
                                     <CartesianGrid stroke="#f5f5f5" />
 
-                                    <Bar dataKey="satisfactionCount">
+                                    <Bar dataKey="satisfactionCount" animationBegin={200}>
                                         <LabelList dataKey="satisfactionCount" position="top" offset={10} />
                                         {selectedGroupData.satisfaction.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={entry.satisfactionFill} />
                                         ))}
                                     </Bar>
-
                                 </BarChart>
                             </ResponsiveContainer>
-                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory} for {selectedGroupData.category}'</strong></p>
+                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory}'</strong> for <strong>'{selectedGroupData.category}'</strong></p>
                         </div>
                     )}
                 </>
