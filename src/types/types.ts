@@ -111,3 +111,12 @@ type Patients_ByMultipleCategoriesT = {
     category: string,
     satisfaction: PatientCount_bySatisfactionT
 }
+
+type SelectedGroupDataT = {
+    category: string,
+    satisfaction: {
+        satisfactionLabel: string,
+        satisfactionCount: number,
+        satisfactionFill: string
+    }[]
+}
