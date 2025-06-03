@@ -93,6 +93,9 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
     const handleBarClick = (data: any) => {
         const { activeLabel, activePayload } = data;
 
+        // Prevent execution if the click was inside the bar chart but not the actual bar
+        if (!activePayload || activePayload.length === 0) return;
+
         const selectedBarData = activePayload;
 
         const selectedBarData_refined = selectedBarData.map((sbd: any) => {
