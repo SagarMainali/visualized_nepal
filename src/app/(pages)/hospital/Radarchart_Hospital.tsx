@@ -34,7 +34,7 @@ export default function Radarchart_Hospital({ patientsData_All, getPatientsByCat
                             <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
                         </RadarChart>
                     </ResponsiveContainer>
-                    <p className='chart-label'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
+                    <p className='chart-label'>Number of patients categorized by <strong>'{selectedCategory}'</strong></p>
                 </>)
                 : <Loader />
             }

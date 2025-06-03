@@ -64,8 +64,8 @@ type PatientsDataAllT = {
     Length_of_Stay: number,
     Readmission: string,
     Satisfaction: number
-    // [key: string]: string | number
 }
+// [key: string]: string | number
 
 type Patients_ByCategoryT = {
     category: string,
@@ -75,4 +75,38 @@ type Patients_ByCategoryT = {
 type ChartPropsT = {
     patientsData_All: PatientsDataAllT[],
     getPatientsByCategory: (category: string) => Patients_ByCategoryT[]
+}
+
+// separate objects to preserve order of the properties
+type PatientCount_byAgeT = {
+    '0-15': number,
+    '15-30': number,
+    '30-45': number,
+    '45-60': number,
+    '60-75': number,
+    '75+': number,
+}
+
+type PatientCount_byLengthOfStayT = {
+    '0-3': number,
+    '3-7': number,
+    '7-14': number,
+    '14-30': number,
+    '30-45': number,
+    '45-60': number,
+    '60-75': number,
+    '75+': number,
+}
+
+type PatientCount_bySatisfactionT = {
+    'Very Dissatisfied': number,
+    'Dissatisfied': number,
+    'Neutral': number,
+    'Satisfied': number,
+    'Very Satisfied': number,
+}
+
+type Patients_ByMultipleCategoriesT = {
+    category: string,
+    satisfaction: PatientCount_bySatisfactionT
 }

@@ -48,7 +48,7 @@ export default function Piechart_Hospital({ patientsData_All, getPatientsByCateg
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
-                    <p className='chart-label'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
+                    <p className='chart-label'>Number of patients categorized by <strong>'{selectedCategory}'</strong></p>
                 </>)
                 : <Loader />
             }

@@ -2,9 +2,9 @@ import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
-import { Bar, CartesianGrid, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label } from 'recharts';
+import { Bar, CartesianGrid, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label } from 'recharts';
 
-export default function Barchart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
+export default function Barchart_Hospital_SingleCategory({ patientsData_All, getPatientsByCategory }: ChartPropsT) {
 
     const [patients_byCategory, setPatients_byCategory] = useState<Patients_ByCategoryT[] | null>(null);
 
@@ -41,18 +41,23 @@ export default function Barchart_Hospital({ patientsData_All, getPatientsByCateg
                                 }
                                 tickMargin={isSelectedCategoryLabelLong ? 5 : 10}
                             >
-                                <Label value={selectedCategory} position="insideBottom"/>
+                                <Label value={selectedCategory} position="insideBottom" />
                             </XAxis>
+
                             <YAxis label={{ value: 'No. of Patients', angle: -90, position: 'insideLeft' }} />
+
                             <Tooltip content={<CustomTooltip_Hospital selectedValue={selectedCategory} />} />
+
                             {/* <Legend verticalAlign='top'/> */}
+
                             <CartesianGrid stroke="#f5f5f5" />
+
                             <Bar dataKey="count" fill="#4E6688" name="Number of patients" >
                                 <LabelList dataKey="count" position="top" offset={10} />
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
-                    <p className='chart-label'>Number of patients categorized by <strong>'{(selectedCategory[0].toUpperCase() + selectedCategory.slice(1))}'</strong></p>
+                    <p className='chart-label'>Number of patients categorized by <strong>'{selectedCategory}'</strong></p>
                 </>)
                 : <Loader />
             }

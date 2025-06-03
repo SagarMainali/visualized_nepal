@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import axios from 'axios';
-import Barchart from './Barchart_Hospital';
+import Barchart_Hospital_SingleCategory from './Barchart_Hospital_SingleCategory';
 import Piechart from './Piechart_Hospital';
 import Radarchart from './Radarchart_Hospital';
+import Barchart_Hospital_MultipleCategories from './Barchart_Hospital_MultipleCategories';
 
 export default function Hospital() {
 
@@ -41,11 +42,12 @@ export default function Hospital() {
     }, [])
 
     const getPatientsByCategory = (category: string): Patients_ByCategoryT[] => {
-        // for objects where order doesn't matter
+        // for counting categories and creating objects where order doesn't matter
+        // example for counting patients according to condition: { diabetes: 24, cancer: 19 }
         const patientCount_byOtherCategory: Record<string, number> = {};
 
         // separate objects to preserve order of the properties
-        const patientCount_byAge = {
+        const patientCount_byAge: PatientCount_byAgeT = {
             '0-15': 0,
             '15-30': 0,
             '30-45': 0,
@@ -54,7 +56,7 @@ export default function Hospital() {
             '75+': 0,
         }
 
-        const patientCount_byLengthOfStay = {
+        const patientCount_byLengthOfStay: PatientCount_byLengthOfStayT = {
             '0-3': 0,
             '3-7': 0,
             '7-14': 0,
@@ -65,7 +67,7 @@ export default function Hospital() {
             '75+': 0,
         }
 
-        const patientCount_bySatisfaction = {
+        const patientCount_bySatisfaction: PatientCount_bySatisfactionT = {
             'Very Dissatisfied': 0,
             'Dissatisfied': 0,
             'Neutral': 0,
@@ -135,11 +137,13 @@ export default function Hospital() {
             {patientsData_All
                 &&
                 <>
-                    <Barchart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
+                    <Barchart_Hospital_SingleCategory patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
 
                     <Piechart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
 
                     <Radarchart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
+
+                    <Barchart_Hospital_MultipleCategories patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
                 </>
             }
         </div>
