@@ -22,13 +22,20 @@ export default function Hospital() {
                     skipEmptyLines: true,
                     complete: (result) => {
                         const data = result.data as PatientsDataAllT[];
-                        const correctlyTypedData = data.map((row) => ({
-                            ...row,
-                            Patient_ID: parseInt(row.Patient_ID as unknown as string), // because .csv has only string fields even after parsing 
-                            Satisfaction: parseInt(row.Satisfaction as unknown as string),
-                            Age: parseInt(row.Age as unknown as string),
-                            Length_of_Stay: parseInt(row.Length_of_Stay as unknown as string),
-                        }));
+                        const correctlyTypedData = data.map((row) => {
+
+                            // renaming Length_of_Stay to 'Length of Stay'
+                            // separate Length_of_Stay to not add it to the new returned object, instead send its value to the new prop
+                            const { Length_of_Stay, ...rest } = row as any;
+
+                            return {
+                                ...rest,
+                                Patient_ID: parseInt(row.Patient_ID as unknown as string), // because .csv has only string fields even after parsing 
+                                Satisfaction: parseInt(row.Satisfaction as unknown as string),
+                                Age: parseInt(row.Age as unknown as string),
+                                'Length of Stay': parseInt(Length_of_Stay as unknown as string),
+                            }
+                        });
 
                         setPatientsData_All(correctlyTypedData);
                     }
@@ -77,7 +84,7 @@ export default function Hospital() {
 
         patientsData_All?.forEach(patientRecord => {
             // from the selected category by the user, get its value
-            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length_of_Stay' | 'Satisfaction')];
+            const selectedCategory = patientRecord[category as ('Condition' | 'Procedure' | 'Age' | 'Length of Stay' | 'Satisfaction')];
 
             if (category === 'Age') {
                 const age = patientRecord['Age'];
@@ -90,7 +97,7 @@ export default function Hospital() {
                 else patientCount_byAge['75+']++;
             }
             else if (category === 'Length of Stay') {
-                const lengthOfStay = patientRecord['Length_of_Stay'];
+                const lengthOfStay = patientRecord['Length of Stay'];
 
                 if (lengthOfStay < 3) patientCount_byLengthOfStay['0-3']++;
                 else if (lengthOfStay < 7) patientCount_byLengthOfStay['3-7']++;

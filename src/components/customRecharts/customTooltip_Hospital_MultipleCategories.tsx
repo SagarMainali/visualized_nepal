@@ -4,18 +4,29 @@ export default function CustomTooltip_Hospital_MultipleCategories({ active, payl
 
     if (!active || !payload || !payload.length) return null;
 
-    const { category, satisfaction } = payload[0].payload;
+    const selectedBarLabel = payload[0].payload.subCategory_of_firstCategory
+
+    const tooltipData = payload.map(selectedBarData => {
+        const { name, value, color } = selectedBarData;
+
+        return {
+            label: name,
+            count: value,
+            color
+        }
+    })
 
     return (
-        <div className="px-5 py-4 shadow-2xl rounded border border-light flex flex-col bg-slate-50/90">
+        <div className="px-6 py-4 shadow-2xl rounded border border-light flex flex-col bg-slate-50/90">
             <p className="font-semibold mb-1 text-primary-gray underline underline-offset-2">Comparision: {selectedValue} vs {selectedValue2!}</p>
-            <p className="font-semibold mb-1 text-primary-gray">{selectedValue}: {category}</p>
+            <p className="font-semibold mb-1 text-primary-gray">{selectedValue}: {selectedBarLabel}</p>
             <hr />
-            <span className='font-semibold text-[#497D74]'>Very Satisfied: {satisfaction['Very Satisfied']}</span>
-            <span className='font-semibold text-[#A0C878]'>Satisfied: {satisfaction['Satisfied']}</span>
-            <span className='font-semibold text-[#7886C7]'>Neutral: {satisfaction['Neutral']}</span>
-            <span className='font-semibold text-[#F97A00]'>Dissatisfied: {satisfaction['Dissatisfied']}</span>
-            <span className='font-semibold text-[#FF0B55]'>Very Dissatisfied: {satisfaction['Very Dissatisfied']}</span>
+            {
+                tooltipData.reverse().map(data => {
+                    const { label, count, color } = data;
+                    return <span key={label} className='font-semibold' style={{ color }}>{label}: {count}</span>
+                })
+            }
         </div>
     );
 }

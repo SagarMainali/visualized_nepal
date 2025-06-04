@@ -62,7 +62,7 @@ type PatientsDataAllT = {
     Condition: string,
     Procedure: string,
     Cost: string,
-    Length_of_Stay: number,
+    'Length of Stay': number,
     Readmission: string,
     Satisfaction: number
 }
@@ -108,8 +108,9 @@ type PatientCount_bySatisfactionT = {
 }
 
 type Patients_ByMultipleCategoriesT = {
-    category: string,
-    satisfaction: PatientCount_bySatisfactionT
+    subCategory_of_firstCategory: string,
+    count_of_subCategory_of_firstCategory: number,
+    secondCategory: PatientCount_bySatisfactionT | PatientCount_byAgeT | PatientCount_byLengthOfStayT
 }
 
 type SelectedGroupDataT = {
