@@ -114,10 +114,10 @@ type Patients_ByMultipleCategoriesT = {
 }
 
 type SelectedGroupDataT = {
-    category: string,
-    satisfaction: {
-        satisfactionLabel: string,
-        satisfactionCount: number,
-        satisfactionFill: string
+    subCategory: string,
+    selectedBarData: {
+        label: string,
+        count: number,
+        fill: string
     }[]
 }

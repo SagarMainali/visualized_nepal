@@ -212,19 +212,21 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
         const selectedBarData = activePayload;
 
         const selectedBarData_refined = selectedBarData.map((sbd: any) => {
-            const { fill, name, value } = sbd;
+            const { name, value, fill } = sbd;
             return {
-                satisfactionLabel: name,
-                satisfactionCount: value,
-                satisfactionFill: fill,
+                label: name,
+                count: value,
+                fill: fill,
             }
         })
 
         setSelectedGroupData({
-            category: activeLabel,
-            satisfaction: selectedBarData_refined
+            subCategory: activeLabel,
+            selectedBarData: selectedBarData_refined
         })
     };
+
+    console.log(selectedGroupData?.selectedBarData)
 
     // automatically scroll to the dynamic chart
     useEffect(() => {
@@ -320,24 +322,24 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
                     {selectedGroupData && (
                         <div className='h-[75vh] w-full flex flex-col items-center py-4 gap-2 mt-1' ref={dynamicChart_ref}>
                             <ResponsiveContainer width="80%" height="100%">
-                                <BarChart data={selectedGroupData.satisfaction} margin={{ top: 30, left: 10 }}>
-                                    <XAxis dataKey="satisfactionLabel" height={60} tickMargin={5}>
-                                        <Label value={selectedGroupData.category} position="insideBottom" height={100} />
+                                <BarChart data={selectedGroupData.selectedBarData} margin={{ top: 30, left: 10 }}>
+                                    <XAxis dataKey="label" height={60} tickMargin={5}>
+                                        <Label value={selectedGroupData.subCategory} position="insideBottom" height={100} />
                                     </XAxis>
 
                                     <YAxis label={{ value: 'No. of patients', angle: -90, position: 'insideLeft' }} />
 
                                     <CartesianGrid stroke="#f5f5f5" />
 
-                                    <Bar dataKey="satisfactionCount" animationBegin={200}>
-                                        <LabelList dataKey="satisfactionCount" position="top" offset={10} />
-                                        {selectedGroupData.satisfaction.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.satisfactionFill} />
+                                    <Bar dataKey="count" animationBegin={200}>
+                                        <LabelList dataKey="count" position="top" offset={10} />
+                                        {selectedGroupData.selectedBarData.map((sbd, index) => (
+                                            <Cell key={`cell-${index}`} fill={sbd.fill} />
                                         ))}
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
-                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory}'</strong> for <strong>'{selectedGroupData.category}'</strong></p>
+                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory}'</strong> for <strong>'{selectedGroupData.subCategory}'</strong></p>
                         </div>
                     )}
                 </>
