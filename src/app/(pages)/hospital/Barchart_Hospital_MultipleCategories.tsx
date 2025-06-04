@@ -9,7 +9,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
     const [patients_byMultipleCategories, setPatients_byMultipleCategories] = useState<Patients_ByMultipleCategoriesT[] | null>(null);
 
     const [firstCategory, setFirstCategory] = useState<keyof PatientsDataAllT>('Condition');
-    const [secondCategory, setSecondCategory] = useState<keyof PatientsDataAllT>('Age');
+    const [secondCategory, setSecondCategory] = useState<keyof PatientsDataAllT>('Length of Stay');
 
     const getPatientsByMultipleCategories = () => {
         setSelectedGroupData(null); // to unmount the dynamic rendering chart
@@ -324,7 +324,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
                             <ResponsiveContainer width="80%" height="100%">
                                 <BarChart data={selectedGroupData.selectedBarData} margin={{ top: 30, left: 10 }}>
                                     <XAxis dataKey="label" height={60} tickMargin={5}>
-                                        <Label value={selectedGroupData.subCategory} position="insideBottom" height={100} />
+                                        <Label value={secondCategory} position="insideBottom" height={100} />
                                     </XAxis>
 
                                     <YAxis label={{ value: 'No. of patients', angle: -90, position: 'insideLeft' }} />
@@ -339,7 +339,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
-                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory}'</strong> for <strong>'{selectedGroupData.subCategory}'</strong></p>
+                            <p className='chart-label'>Number of patients categorized by <strong>'{secondCategory}'</strong> for <strong>{firstCategory}: '{selectedGroupData.subCategory}'</strong></p>
                         </div>
                     )}
                 </>

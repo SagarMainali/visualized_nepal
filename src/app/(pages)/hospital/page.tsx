@@ -5,8 +5,9 @@ import Papa from 'papaparse';
 import axios from 'axios';
 import Barchart_Hospital_SingleCategory from './Barchart_Hospital_SingleCategory';
 import Piechart from './Piechart_Hospital';
-import Radarchart from './Radarchart_Hospital';
+import Radarchart from './Radarchart_Hospital_SingleCategory';
 import Barchart_Hospital_MultipleCategories from './Barchart_Hospital_MultipleCategories';
+import Radarchart_Hospital from './Radarchart_Hospital_MultipleCategories';
 
 export default function Hospital() {
 
@@ -151,6 +152,8 @@ export default function Hospital() {
                     <Radarchart patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
 
                     <Barchart_Hospital_MultipleCategories patientsData_All={patientsData_All} getPatientsByCategory={getPatientsByCategory} />
+
+                    <Radarchart_Hospital />
                 </>
             }
         </div>
