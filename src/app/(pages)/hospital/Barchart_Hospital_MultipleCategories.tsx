@@ -263,7 +263,7 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
     };
 
     return (
-        <div className='h-auto w-full'>
+        <div className='h-auto w-full relative'>
             {patients_byMultipleCategories
                 ? (<>
                     <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>

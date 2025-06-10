@@ -121,3 +121,28 @@ type SelectedGroupDataT = {
         fill: string
     }[]
 }
+
+// for single day + all vegetables data
+type SingleDayVegetableDataT = {
+    date: string,
+    vegetablesData: {
+        commodity: string,
+        unit: string,
+        minimum: string,
+        maximum: string,
+        average: string
+    }[]
+}
+
+// for each day + all vegetables data
+type rangedDateVegetableDataT = SingleDayVegetableDataT[];
+
+// for chart
+type IndividualVegetableDataByDate_ForChartT = {
+    date: string;
+    commodity: string,
+    unit: string,
+    minimum: number,
+    maximum: number,
+    average: number
+} | undefined;

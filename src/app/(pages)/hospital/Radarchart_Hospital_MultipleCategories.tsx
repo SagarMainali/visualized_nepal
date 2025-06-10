@@ -38,7 +38,7 @@ export default function Radarchart_Hospital() {
     ]
 
     return (
-        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2 relative'>
             {patients_bySatisfaction_forProcedure
                 ? (<>
                     <ResponsiveContainer width="100%" height="90%">

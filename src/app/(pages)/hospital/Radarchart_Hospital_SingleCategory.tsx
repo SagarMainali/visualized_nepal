@@ -18,7 +18,7 @@ export default function Radarchart_Hospital({ patientsData_All, getPatientsByCat
     }, [patientsData_All, selectedCategory])
 
     return (
-        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2 relative'>
             {patients_byCategory
                 ? (<>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>

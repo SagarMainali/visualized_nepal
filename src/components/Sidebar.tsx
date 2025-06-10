@@ -1,10 +1,10 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartSimple, faCircleDollarToSlot, faGasPump, faGem, faHospitalUser, faPassport, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { faCarrot, faChartSimple, faCircleDollarToSlot, faGasPump, faGem, faHospitalUser, faPassport, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/context/appContext';
 
 export default function Sidebar() {
@@ -54,6 +54,11 @@ export default function Sidebar() {
             <Link href='/hospital' className={isActive('/hospital')}>
                 <FontAwesomeIcon icon={faHospitalUser} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Hospital</span>
+            </Link>
+
+            <Link href='/vegetables' className={isActive('/vegetables')}>
+                <FontAwesomeIcon icon={faCarrot} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
+                <span className={isMenuOpen ? '' : 'hidden'}>Vegetables</span>
             </Link>
         </aside>
     )

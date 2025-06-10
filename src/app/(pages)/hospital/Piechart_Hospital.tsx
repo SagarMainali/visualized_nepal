@@ -20,7 +20,7 @@ export default function Piechart_Hospital({ patientsData_All, getPatientsByCateg
     const COLORS = ['#FFAAAA', '#648DB3', '#7F55B1', '#537D5D', '#48A6A7', '#7F8CAA', '#948979', '#A4B465', '#A2B9A7', '#FF6363', '#67AE6E', '#9FB3DF', '#97866A', '#D4C9BE', '#27548A'];
 
     return (
-        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2'>
+        <div className='h-[93vh] w-full flex flex-col items-center py-4 gap-2 relative'>
             {patients_byCategory
                 ? (<>
                     <div className='w-[90%] flex flex-row-reverse gap-2'>
