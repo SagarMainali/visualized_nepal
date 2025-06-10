@@ -123,7 +123,7 @@ type SelectedGroupDataT = {
 }
 
 // for single day + all vegetables data
-type SingleDayVegetableDataT = {
+type SingleDate_AllVegetablesT = {
     date: string,
     vegetablesData: {
         commodity: string,
@@ -135,10 +135,10 @@ type SingleDayVegetableDataT = {
 }
 
 // for each day + all vegetables data
-type rangedDateVegetableDataT = SingleDayVegetableDataT[];
+type RangedDate_AllVegetablesT = SingleDate_AllVegetablesT[];
 
 // for chart
-type IndividualVegetableDataByDate_ForChartT = {
+type RangedDate_SingleVegetable_ForChartT = {
     date: string;
     commodity: string,
     unit: string,
