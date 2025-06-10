@@ -1,4 +1,4 @@
-import { getColor } from "./helper/getColor";
+import { getColor } from "./getColor";
 
 export default function CustomActiveDot({ cx, cy, value }: CustomActiveDropT) {
 

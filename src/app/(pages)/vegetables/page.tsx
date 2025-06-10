@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, Brush } from 'recharts';
 import CustomDropDown from '@/components/CustomDropdown';
-import CustomTooltip_Vegetables from '@/components/customRecharts/customTooltip_Vegetables';
+import CustomTooltip_Vegetables from '@/app/(pages)/vegetables/customTooltip_Vegetables';
 
 export default function Vegetables() {
 

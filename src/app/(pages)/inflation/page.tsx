@@ -4,8 +4,8 @@ import Loader from '@/components/Loader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea } from 'recharts';
-import CustomTooltip_InflationRate from '@/components/customRecharts/CustomTooltip_InflationRate';
-import CustomActiveDot from '@/components/customRecharts/customActiveDot';
+import CustomTooltip_InflationRate from '@/app/(pages)/inflation/CustomTooltip_InflationRate';
+import CustomActiveDot from '@/app/(pages)/inflation/customActiveDot';
 import { dateFormatter } from '@/helper/formatters';
 
 export default function Inflation() {

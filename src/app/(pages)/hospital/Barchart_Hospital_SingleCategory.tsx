@@ -1,5 +1,5 @@
 import CustomDropDown from '@/components/CustomDropdown';
-import CustomTooltip_Hospital from '@/components/customRecharts/customTooltip_Hospital';
+import CustomTooltip_Hospital from '@/app/(pages)/hospital/customTooltip_Hospital';
 import Loader from '@/components/Loader';
 import React, { useEffect, useState } from 'react'
 import { Bar, CartesianGrid, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label } from 'recharts';

@@ -2,7 +2,7 @@ import Loader from '@/components/Loader';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Bar, Brush, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import CustomTooltip_Tourism from '@/components/customRecharts/customTooltip_Tourism';
+import CustomTooltip_Tourism from '@/app/(pages)/tourism/customTooltip_Tourism';
 
 export default function Barchart_Tourism() {
 

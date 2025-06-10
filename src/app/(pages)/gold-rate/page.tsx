@@ -6,7 +6,7 @@ import Loader from '@/components/Loader';
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { dateFormatter, timeIndicator } from '@/helper/formatters';
 import CustomDropDown from '@/components/CustomDropdown';
-import CustomTooltip_GoldRate from '@/components/customRecharts/CustomTooltip_GoldRate';
+import CustomTooltip_GoldRate from '@/app/(pages)/gold-rate/CustomTooltip_GoldRate';
 
 export default function GoldRate() {
 

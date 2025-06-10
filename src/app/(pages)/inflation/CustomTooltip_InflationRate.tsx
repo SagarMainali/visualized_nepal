@@ -1,5 +1,5 @@
 import React from 'react'
-import { getColor } from './helper/getColor';
+import { getColor } from './getColor';
 
 export default function CustomTooltip_InflationRate({ active, payload }: CustomTooltipT) {
 
