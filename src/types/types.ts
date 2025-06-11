@@ -134,9 +134,6 @@ type SingleDate_AllVegetablesT = {
     }[]
 }
 
-// for each day + all vegetables data
-type RangedDate_AllVegetablesT = SingleDate_AllVegetablesT[];
-
 // for chart
 type RangedDate_SingleVegetable_ForChartT = {
     date: string;
@@ -145,4 +142,4 @@ type RangedDate_SingleVegetable_ForChartT = {
     minimum: number,
     maximum: number,
     average: number
-} | undefined;
+}

@@ -26,8 +26,8 @@ export const priceFormatter = (price: number) => {
     return price.toLocaleString('en-IN', {
         style: 'currency',
         currency: 'NPR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        // minimumFractionDigits: 0,
+        // maximumFractionDigits: 0,
     })
 }
 

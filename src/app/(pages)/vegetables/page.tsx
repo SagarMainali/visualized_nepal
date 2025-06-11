@@ -6,64 +6,29 @@ import React, { useEffect, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, Brush } from 'recharts';
 import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Vegetables from '@/app/(pages)/vegetables/customTooltip_Vegetables';
+import { commodities } from './VegetablesList';
 
 export default function Vegetables() {
-    const [rangedDate_AllVegetables, setRangedDate_AllVegetables] = useState<RangedDate_AllVegetablesT | null>(null);
 
     const [rangedDate_SingleVegetable, setRangedDate_SingleVegetable] = useState<RangedDate_SingleVegetable_ForChartT[] | null>(null);
 
-    const [selectedVegetable, setSelectedVegetable] = useState('Tomato Big(Indian)');
+    const [selectedVegetable, setSelectedVegetable] = useState('Tomato Big(Nepali)');
 
-    const formatPriceForChart = (price: string) => parseFloat(parseInt(price.split(' ')[1]).toFixed(1));
-
-    // get all vegetables data of all time
+    // get selected vegetable data of all time
     useEffect(() => {
         (async () => {
-            const { data } = await axios.get('/api/vegetables');
-            setRangedDate_AllVegetables(data);
+            const { data } = await axios.get(`/api/vegetables/${selectedVegetable}`);
+            setRangedDate_SingleVegetable(data);
         })();
-    }, [])
-
-    // set vegetable data for chart
-    useEffect(() => {
-        if (rangedDate_AllVegetables) {
-            (async () => {
-                try {
-                    const individualVegetableData_ByDate = rangedDate_AllVegetables.map((singleDate_AllVegetables: SingleDate_AllVegetablesT) => {
-                        const { date, vegetablesData } = singleDate_AllVegetables;
-
-                        const vegetableData = vegetablesData.find(vd => vd.commodity === selectedVegetable);
-
-                        if (vegetableData) {
-                            const { minimum, maximum, average } = vegetableData;
-
-                            return {
-                                date,
-                                ...vegetableData,
-                                minimum: formatPriceForChart(minimum),
-                                maximum: formatPriceForChart(maximum),
-                                average: formatPriceForChart(average)
-                            }
-                        }
-                    })
-
-                    // filter out unavailable datas for particular dates
-                    setRangedDate_SingleVegetable(individualVegetableData_ByDate.filter(ivd => ivd !== undefined));
-
-                } catch (error) {
-                    console.log('Failed to fetch vegetables data!', error);
-                }
-            })();
-        }
-    }, [rangedDate_AllVegetables, selectedVegetable])
+    }, [selectedVegetable])
 
     return (
-        rangedDate_AllVegetables && rangedDate_SingleVegetable
+        rangedDate_SingleVegetable
             ? (
                 <div className='h-full w-full flex flex-col justify-center items-center gap-4'>
                     <div className='w-[90%] flex justify-end items-center gap-2'>
                         <span>Select Vegetable:</span>
-                        <CustomDropDown items={rangedDate_AllVegetables[0].vegetablesData.map(vd => vd.commodity)} label={selectedVegetable} onClickHandler={setSelectedVegetable} selectedValue={selectedVegetable} arrowIcon={true} />
+                        <CustomDropDown items={commodities} label={selectedVegetable} onClickHandler={setSelectedVegetable} selectedValue={selectedVegetable} arrowIcon={true} />
                     </div>
                     {rangedDate_SingleVegetable.length !== 0
                         ? <>

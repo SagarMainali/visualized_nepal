@@ -226,8 +226,6 @@ export default function Barchart_Hospital_MultipleCategories({ patientsData_All,
         })
     };
 
-    console.log(selectedGroupData?.selectedBarData)
-
     // automatically scroll to the dynamic chart
     useEffect(() => {
         if (selectedGroupData && dynamicChart_ref.current) {
