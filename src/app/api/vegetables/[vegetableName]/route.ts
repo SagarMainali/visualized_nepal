@@ -5,8 +5,6 @@ const uri = process.env.MONGODB_URI;
 
 if (!uri) throw new Error("MONGODB_URI is not defined");
 
-const formatPriceForChart = (price: string) => parseFloat(price.split(' ')[1]);
-
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
@@ -53,14 +51,9 @@ export async function GET(_request: NextRequest, { params }: { params: { vegetab
 
             const selectedVegetableData = vegetablesData[0]; // this array only contains one obj
 
-            const { minimum, maximum, average } = selectedVegetableData;
-
             return {
                 date,
-                ...selectedVegetableData,
-                minimum: formatPriceForChart(minimum),
-                maximum: formatPriceForChart(maximum),
-                average: formatPriceForChart(average)
+                ...selectedVegetableData
             }
         })
 

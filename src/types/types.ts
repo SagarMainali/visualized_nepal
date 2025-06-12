@@ -122,18 +122,6 @@ type SelectedGroupDataT = {
     }[]
 }
 
-// for single day + all vegetables data
-type SingleDate_AllVegetablesT = {
-    date: string,
-    vegetablesData: {
-        commodity: string,
-        unit: string,
-        minimum: string,
-        maximum: string,
-        average: string
-    }[]
-}
-
 // for chart
 type RangedDate_SingleVegetable_ForChartT = {
     date: string;
@@ -141,5 +129,8 @@ type RangedDate_SingleVegetable_ForChartT = {
     unit: string,
     minimum: number,
     maximum: number,
-    average: number
+    average: number,
+    fluctuationValue: number,
+    fluctuationPercentage: number,
+    hasSignificantFluctuation: boolean,
 }
