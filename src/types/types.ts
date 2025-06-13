@@ -15,7 +15,8 @@ type CustomTooltipT = {
 type CustomActiveDropT = {
     cx?: number,
     cy?: number,
-    value?: number
+    value?: number,
+    payload?: any
 }
 
 type GoldPageFiltersT = {

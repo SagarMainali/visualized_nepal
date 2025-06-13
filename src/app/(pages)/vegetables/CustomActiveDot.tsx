@@ -1,8 +1,6 @@
-import { getColor } from "./getColor";
+export default function CustomActiveDot({ cx, cy, payload }: CustomActiveDropT) {
 
-export default function CustomActiveDot({ cx, cy, value }: CustomActiveDropT) {
-
-    const color = getColor(value!);
+    const color = payload.hasSignificantFluctuation ? '#E02424' : '#057A55';
 
     return (
         <circle

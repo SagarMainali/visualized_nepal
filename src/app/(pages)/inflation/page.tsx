@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea } from 'recharts';
 import CustomTooltip_InflationRate from '@/app/(pages)/inflation/CustomTooltip_InflationRate';
-import CustomActiveDot from '@/app/(pages)/inflation/customActiveDot';
+import CustomActiveDot from '@/app/(pages)/inflation/CustomActiveDot_InflationRate';
 import { dateFormatter } from '@/helper/formatters';
 
 export default function Inflation() {
