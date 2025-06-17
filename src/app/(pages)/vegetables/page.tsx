@@ -8,6 +8,7 @@ import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Vegetables from './CustomTooltip_Vegetables';
 import { commodities } from './vegetablesList';
 import CustomActiveDot from './CustomActiveDot';
+import SearchableDropDown from './SearchableDropDown';
 
 export default function Vegetables() {
 
@@ -29,7 +30,7 @@ export default function Vegetables() {
                 <div className='h-full w-full flex flex-col justify-center items-center gap-2'>
                     <div className='w-[85%] flex justify-end items-center gap-2'>
                         <span>Select Vegetable:</span>
-                        <CustomDropDown items={commodities} label={selectedVegetable} onClickHandler={setSelectedVegetable} selectedValue={selectedVegetable} arrowIcon={true} />
+                        <SearchableDropDown items={commodities} label={selectedVegetable} onClickHandler={setSelectedVegetable} selectedValue={selectedVegetable} />
                     </div>
                     {rangedDate_SingleVegetable.length !== 0
                         ? <>

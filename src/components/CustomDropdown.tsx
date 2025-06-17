@@ -5,7 +5,7 @@ export default function CustomDropDown({ label, arrowIcon = false, items, onClic
     <Dropdown label={label} arrowIcon={arrowIcon} className='filter-dropdown max-h-[70vh] overflow-y-auto'>
       {
         items.map((item, i) => ( //  item could be just a plain string or an object with 'name' & 'value' properties
-          <DropdownItem key={i} onClick={() => onClickHandler(item.value ?? item)} className={`${selectedValue === (item.value ?? item) ? 'bg-gray-500' : ''}`}>
+          <DropdownItem key={i} onClick={() => onClickHandler(item.value ?? item)} className={`hover:bg-gray-700 ${selectedValue === (item.value ?? item) ? 'bg-gray-800' : ''}`}>
             {item.name ?? item}
           </DropdownItem>
         ))
