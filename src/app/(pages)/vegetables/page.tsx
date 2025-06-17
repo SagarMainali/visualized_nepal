@@ -2,7 +2,7 @@
 
 import Loader from '@/components/Loader';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, Brush, Label } from 'recharts';
 import CustomTooltip_Vegetables from './CustomTooltip_Vegetables';
 import { commodities } from './vegetablesList';
@@ -23,7 +23,24 @@ export default function Vegetables() {
         })();
     }, [selectedVegetable])
 
+    const [email, setEmail] = useState('');
     const [selectedVegetablesForNotification, setSelectedVegetablesForNotification] = useState<string[]>([]);
+
+    const handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const { data } = await axios.post('/api/vegetables', { email, selectedVegetablesForNotification });
+            console.log(data.message);
+            // clear user local states
+            if (data.message) {
+                setEmail('');
+                setSelectedVegetablesForNotification([]);
+            }
+        } catch (error) {
+            console.log('Submission failed:', error);
+        }
+    }
 
     return (
         <>
@@ -88,10 +105,10 @@ export default function Vegetables() {
                 </div>
 
                 <div className='flex flex-col gap-2 items-center'>
-                    <div>
-                        <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' />
-                        <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2'>Subscribe</button>
-                    </div>
+                    <form onSubmit={handleSubmission}>
+                        <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2' type='submit'>Submit</button>
+                    </form>
                     <p className='text-sm italic'>Subscribe with your email if you want to get notified about fluctuation on your selected vegetables.</p>
                 </div>
             </div>

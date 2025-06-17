@@ -1,20 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
-
-const uri = process.env.MONGODB_URI;
-
-if (!uri) throw new Error("MONGODB_URI is not defined");
-
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
-// check if cached connection exist, if not connect and store the connection in global caching
-// this avoids creating connection on every request and using the cached connection, making the code efficient
-if (!(global as any)._mongoClientPromise) {
-    client = new MongoClient(uri);
-    (global as any)._mongoClientPromise = client.connect();
-}
-clientPromise = (global as any)._mongoClientPromise;
+import clientPromise from '@/lib/dbConnect';
 
 export async function GET(_request: NextRequest, { params }: { params: { vegetableName: string } }) {
     try {
