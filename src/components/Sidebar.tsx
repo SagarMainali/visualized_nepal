@@ -36,12 +36,12 @@ export default function Sidebar() {
 
             <Link href='/remittance' className={isActive('/remittance')}>
                 <FontAwesomeIcon icon={faCircleDollarToSlot} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
-                <span className={isMenuOpen ? '' : 'hidden'}>Remittance Inflow</span>
+                <span className={isMenuOpen ? '' : 'hidden'}>Remittance Inflow*</span>
             </Link>
 
             <Link href='/gasoline-price' className={isActive('/gasoline-price')}>
                 <FontAwesomeIcon icon={faGasPump} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
-                <span className={isMenuOpen ? '' : 'hidden'}>Gasoline Prices</span>
+                <span className={isMenuOpen ? '' : 'hidden'}>Gasoline Prices*</span>
             </Link>
 
             <Link href='/tourism' className={isActive('/tourism')}>

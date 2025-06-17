@@ -2,7 +2,7 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
-export default function CustomDropDown({ label, items, onClickHandler, selectedValue }: CustomDropdownPropsT) {
+export default function SearchableDropDown({ label, items, onClickHandler, selectedValue }: CustomDropdownPropsT) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
