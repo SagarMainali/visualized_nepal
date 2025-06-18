@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
         );
 
         if (postedDocument.acknowledged) {
+            console.log('New user has been added with email:', userData.email);
             return NextResponse.json({ message: "You have been registered successfully" }, { status: 201 });
         } else {
             return NextResponse.json({ message: "User registration failed" }, { status: 500 });

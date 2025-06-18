@@ -71,9 +71,10 @@ hr {
   @apply text-light mb-1;
 }
 
-.chart-label{
+.chart-label {
   @apply text-primary-gray text-[16px] font-medium bg-slate-100 text-center py-2 px-8 rounded;
 }
 
-
-
+.error-msg {
+  @apply text-red-500 text-[13px] absolute left-1 -bottom-5 italic;
+}

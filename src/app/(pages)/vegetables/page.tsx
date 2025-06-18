@@ -26,14 +26,27 @@ export default function Vegetables() {
     const [email, setEmail] = useState('');
     const [selectedVegetablesForNotification, setSelectedVegetablesForNotification] = useState<string[]>([]);
 
+    const [error, setError] = useState('');
+
     const handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (email.trim().length === 0) {
+            setError('Please enter your email first');
+            return;
+        }
+
+        if (selectedVegetablesForNotification.length === 0) {
+            setError('Please select at least one vegetable you want to get notified about')
+            return;
+        }
 
         try {
             const { data } = await axios.post('/api/vegetables', { email, selectedVegetablesForNotification });
             console.log(data.message);
             // clear user local states
             if (data.message) {
+                setError('');
                 setEmail('');
                 setSelectedVegetablesForNotification([]);
             }
@@ -83,8 +96,11 @@ export default function Vegetables() {
             </div>
 
             {/* email collection part */}
-            <div className='mx-auto my-6 text-center flex flex-col gap-4 items-center'>
-                <h3 className='text-[24px]'>Email Subscription</h3>
+            <div className='mx-auto my-6 text-center flex flex-col gap-5 items-center'>
+                <div>
+                    <h3 className='text-[24px]'>Email Subscription</h3>
+                    <p className='text-sm italic'>Subscribe with your email if you want to get notified about fluctuation on your selected vegetables.</p>
+                </div>
 
                 <div className='w-[85%] flex gap-2 flex-wrap justify-center mx-auto'>
 
@@ -113,7 +129,7 @@ export default function Vegetables() {
 
                         return <span
                             key={index}
-                            className={`rounded-full p-2 flex items-center justify-center cursor-pointer text-sm ${isSelected ? 'bg-gray-500 text-white' : 'bg-gray-100'}`}
+                            className={`rounded-full px-3 py-2 flex items-center justify-center cursor-pointer text-sm select-none ${isSelected ? 'bg-gray-500 text-white hover:bg-gray-400' : 'bg-gray-100 hover:bg-gray-300'}`}
                             onClick={() => setSelectedVegetablesForNotification(prev =>
                                 isSelected
                                     ? prev.filter(item => commodity !== item)
@@ -125,12 +141,12 @@ export default function Vegetables() {
                     })}
                 </div>
 
-                <div className='flex flex-col gap-2 items-center'>
+                <div className='flex flex-col gap-2 items-center relative mb-2'>
                     <form onSubmit={handleSubmission}>
                         <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' value={email} onChange={(e) => setEmail(e.target.value)} />
                         <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2' type='submit'>Submit</button>
                     </form>
-                    <p className='text-sm italic'>Subscribe with your email if you want to get notified about fluctuation on your selected vegetables.</p>
+                    {error && <p className='error-msg'>{error}*</p>}
                 </div>
             </div>
         </>
