@@ -87,6 +87,27 @@ export default function Vegetables() {
                 <h3 className='text-[24px]'>Email Subscription</h3>
 
                 <div className='w-[85%] flex gap-2 flex-wrap justify-center mx-auto'>
+
+                    <div className='w-full flex justify-center'>
+                        <span className={`rounded px-4 py-2 flex items-center justify-center cursor-pointer text-sm 
+                            ${selectedVegetablesForNotification.length === commodities.length
+                                ? 'bg-red-300'
+                                : 'bg-blue-200'
+                            }
+                        `}
+                            onClick={() => {
+                                if (selectedVegetablesForNotification.length === commodities.length) {
+                                    setSelectedVegetablesForNotification([]); //deselect all commodities
+                                } else {
+                                    setSelectedVegetablesForNotification(commodities); //select all commodities
+                                }
+                            }}
+                        >
+                            {selectedVegetablesForNotification.length === commodities.length ? 'Deselect all ❌' : 'Select all ✅'}
+                        </span>
+                    </div>
+
+                    {/* commodities tags */}
                     {commodities.map((commodity, index) => {
                         const isSelected = selectedVegetablesForNotification.includes(commodity);
 
