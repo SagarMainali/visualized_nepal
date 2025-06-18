@@ -42,17 +42,22 @@ export default function Vegetables() {
             return;
         }
 
+        setError('');
+
         try {
             const { data } = await axios.post('/api/vegetables', { email, selectedVegetablesForNotification });
             setModalMessage(data.message);
-            // clear user local states
-            if (data.message) {
-                setError('');
-                setEmail('');
-                setSelectedVegetablesForNotification([]);
-            }
+            setEmail('');
+            setSelectedVegetablesForNotification([]);
         } catch (error) {
-            console.log('Submission failed:', error);
+            if (axios.isAxiosError(error)) {
+                console.log('Submission failed:', error.response?.data);
+                setModalMessage(error.response?.data?.message || "Something went wrong");
+                setError('Email already in use by someone. Please use another email.')
+            } else {
+                console.log('Unexpected error:', error);
+                setModalMessage("Unexpected error occurred");
+            }
         }
     }
 
@@ -108,10 +113,10 @@ export default function Vegetables() {
                 <div className='w-[85%] flex gap-2 flex-wrap justify-center mx-auto'>
 
                     <div className='w-full flex justify-center'>
-                        <span className={`rounded px-4 py-2 flex items-center justify-center cursor-pointer text-sm 
+                        <span className={`rounded px-4 py-2 flex items-center justify-center cursor-pointer text-sm duration-200
                             ${selectedVegetablesForNotification.length === commodities.length
-                                ? 'bg-red-300'
-                                : 'bg-blue-200'
+                                ? 'bg-red-300 hover:bg-red-200'
+                                : 'bg-blue-200 hover:bg-blue-300'
                             }
                         `}
                             onClick={() => {
@@ -147,7 +152,7 @@ export default function Vegetables() {
                 <div className='flex flex-col gap-2 items-center relative mb-2'>
                     <form onSubmit={handleSubmission}>
                         <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2' type='submit'>Submit</button>
+                        <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2 hover:bg-blue-600 duration-200' type='submit'>Submit</button>
                     </form>
                     {error && <p className='error-msg'>{error}*</p>}
                 </div>

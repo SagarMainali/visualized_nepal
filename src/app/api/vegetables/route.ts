@@ -19,6 +19,13 @@ export async function POST(request: NextRequest) {
         const db = client.db();
         const collection = db.collection("user_data");
 
+        const emailMatch = await collection.findOne({ email: userData.email });
+
+        if (emailMatch) {
+            console.log("User registration failed. Email already exists");
+            return NextResponse.json({ message: "The email you provided has already been registered by someone. Please use another email." }, { status: 400 })
+        }
+
         const postedDocument = await collection.updateOne(
             { email: userData.email },
             { $set: userData },
