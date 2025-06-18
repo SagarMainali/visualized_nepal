@@ -135,3 +135,8 @@ type RangedDate_SingleVegetable_ForChartT = {
     fluctuationPercentage: number,
     hasSignificantFluctuation: boolean,
 }
+
+type ModalPropsT = {
+    modalMessage: string,
+    setModalMessage: (message: string | null) => void
+}

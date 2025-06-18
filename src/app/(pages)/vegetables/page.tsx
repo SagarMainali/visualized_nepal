@@ -8,6 +8,7 @@ import CustomTooltip_Vegetables from './CustomTooltip_Vegetables';
 import { commodities } from './vegetablesList';
 import CustomActiveDot from './CustomActiveDot';
 import SearchableDropDown from './SearchableDropDown';
+import Modal from './Modal';
 
 export default function Vegetables() {
 
@@ -43,7 +44,7 @@ export default function Vegetables() {
 
         try {
             const { data } = await axios.post('/api/vegetables', { email, selectedVegetablesForNotification });
-            console.log(data.message);
+            setModalMessage(data.message);
             // clear user local states
             if (data.message) {
                 setError('');
@@ -54,6 +55,8 @@ export default function Vegetables() {
             console.log('Submission failed:', error);
         }
     }
+
+    const [modalMessage, setModalMessage] = useState<string | null>(null);
 
     return (
         <>
@@ -148,6 +151,8 @@ export default function Vegetables() {
                     </form>
                     {error && <p className='error-msg'>{error}*</p>}
                 </div>
+
+                {modalMessage && <Modal modalMessage={modalMessage} setModalMessage={setModalMessage} />}
             </div>
         </>
     )
