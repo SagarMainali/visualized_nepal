@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/dbConnect";
 
-interface UserData {
+type UserData = {
     email: string;
     [key: string]: any;
 }

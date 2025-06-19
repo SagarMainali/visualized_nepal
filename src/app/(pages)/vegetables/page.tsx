@@ -2,7 +2,7 @@
 
 import Loader from '@/components/Loader';
 import axios from 'axios';
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, Brush, Label } from 'recharts';
 import CustomTooltip_Vegetables from './CustomTooltip_Vegetables';
 import { commodities } from './vegetablesList';
@@ -24,7 +24,8 @@ export default function Vegetables() {
         })();
     }, [selectedVegetable])
 
-    const [email, setEmail] = useState('');
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    // const [email, setEmail] = useState('');
     const [selectedVegetablesForNotification, setSelectedVegetablesForNotification] = useState<string[]>([]);
 
     const [error, setError] = useState('');
@@ -32,7 +33,13 @@ export default function Vegetables() {
     const handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (email.trim().length === 0) {
+        if (!inputRef.current) {
+            return;
+        }
+
+        const inputValue: string = inputRef.current.value;
+
+        if (inputValue.trim().length === 0) {
             setError('Please enter your email first');
             return;
         }
@@ -45,9 +52,9 @@ export default function Vegetables() {
         setError('');
 
         try {
-            const { data } = await axios.post('/api/vegetables', { email, selectedVegetablesForNotification });
+            const { data } = await axios.post('/api/vegetables', { email: inputValue, selectedVegetablesForNotification });
             setModalMessage(data.message);
-            setEmail('');
+            inputRef.current.value = '';
             setSelectedVegetablesForNotification([]);
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -151,7 +158,7 @@ export default function Vegetables() {
 
                 <div className='flex flex-col gap-2 items-center relative mb-2'>
                     <form onSubmit={handleSubmission}>
-                        <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" placeholder='Email' className='px-8 py-3 w-[500px] bg-gray-100 outline-gray-500' ref={inputRef} />
                         <button className='px-12 py-3 bg-blue-500 text-white cursor-pointer text-[18px] ml-2 hover:bg-blue-600 duration-200' type='submit'>Submit</button>
                     </form>
                     {error && <p className='error-msg'>{error}*</p>}
