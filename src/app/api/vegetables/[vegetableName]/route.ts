@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from '@/lib/dbConnect';
 
-export async function GET(_request: NextRequest, { params }: { params: { vegetableName: string } }) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ vegetableName: string }> }) {
     try {
         const { vegetableName } = await params;
 
