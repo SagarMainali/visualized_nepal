@@ -9,8 +9,9 @@ export async function GET() {
 
         const goldRatesData: GoldRateDataT[] = []
 
-        $('table thead tr').each((i, el) => {
-            if (i === 0) return; // omit the first row since it is the heading
+        // $('table thead tr').each((i, el) => {
+        $('table tbody tr').each((_, el) => {
+            // if (i === 0) return; // omit the first row since it is the heading
             const englishDate = $(el).find('td').eq(0).text().trim();
             const nepaliDate = $(el).find('td').eq(1).text().trim();
             const price = $(el).find('td').eq(2).text().trim();
