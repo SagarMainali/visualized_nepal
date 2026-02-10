@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "../components/Sidebar";
 import TopNavbar from "@/components/TopNavbar";
 import { AppContextProvider } from "@/context/appContext";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
 
         </AppContextProvider>
 
+        <Analytics />
       </body>
     </html>
   );
