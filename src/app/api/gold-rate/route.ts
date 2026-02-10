@@ -1,11 +1,29 @@
 import { NextResponse } from "next/server";
 import * as cheerio from 'cheerio';
 
+export const runtime = "nodejs";
+
 const goldRatesData_url = "https://gahanaonline.com/gold-rate-history/"
 
 export async function GET() {
     try {
-        const $ = await cheerio.fromURL(goldRatesData_url);
+        // const $ = await cheerio.fromURL(goldRatesData_url);
+
+        const res = await fetch(goldRatesData_url, {
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36",
+                "Accept-Language": "en-US,en;q=0.9",
+            },
+            cache: "no-store",
+        });
+
+        if (!res.ok) {
+            throw new Error(`Fetch failed: ${res.status}`);
+        }
+
+        const html = await res.text();
+        const $ = cheerio.load(html);
 
         const goldRatesData: GoldRateDataT[] = []
 
