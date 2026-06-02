@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCarrot, faChartSimple, faCircleDollarToSlot, faGasPump, faGem, faHospitalUser, faPassport, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { faCarrot, faChartSimple, faGem, faCircleH, faPassport, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/context/appContext';
 
 export default function Sidebar() {
@@ -34,7 +34,7 @@ export default function Sidebar() {
                 <span className={isMenuOpen ? '' : 'hidden'}>Inflation</span>
             </Link>
 
-            <Link href='/remittance' className={isActive('/remittance')}>
+            {/* <Link href='/remittance' className={isActive('/remittance')}>
                 <FontAwesomeIcon icon={faCircleDollarToSlot} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Remittance Inflow*</span>
             </Link>
@@ -42,17 +42,17 @@ export default function Sidebar() {
             <Link href='/gasoline-price' className={isActive('/gasoline-price')}>
                 <FontAwesomeIcon icon={faGasPump} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Gasoline Prices*</span>
-            </Link>
+            </Link> */}
 
             <Link href='/tourism' className={isActive('/tourism')}>
                 <FontAwesomeIcon icon={faPassport} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Tourism</span>
             </Link>
 
-            <hr />
+            {/* <hr /> */}
 
             <Link href='/hospital' className={isActive('/hospital')}>
-                <FontAwesomeIcon icon={faHospitalUser} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
+                <FontAwesomeIcon icon={faCircleH} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Hospital</span>
             </Link>
 
