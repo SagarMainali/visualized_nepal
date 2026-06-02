@@ -3,7 +3,7 @@
 import Loader from '@/components/Loader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, ReferenceArea } from 'recharts';
 import CustomTooltip_InflationRate from '@/app/(pages)/inflation/CustomTooltip_InflationRate';
 import CustomActiveDot from '@/app/(pages)/inflation/CustomActiveDot_InflationRate';
 import { dateFormatter } from '@/helper/formatters';
@@ -43,9 +43,14 @@ export default function Inflation() {
                         </LineChart>
                     </ResponsiveContainer>
                     <p className='text-primary-blue text-[18px]'>Inflation rate in (%) according to Consumer Price Index(CPI)</p>
-                    <div className='w-[80%] relative flex justify-center'>
+                    <div className='w-[90%] relative flex justify-center'>
                         <button className=' bg-primary-blue px-4 py-2 rounded font-semibold cursor-pointer text-white shadow' onClick={() => getInflationRateData()}>Get latest update</button>
-                        <span className='text-[12px] text-gray-600 absolute right-0 top-[50%] -translate-y-[50%]'>Last updated: {dateFormatter(inflationRateData_Res.lastUpdated, 'y-m-d')}</span>
+                        <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[12px] text-gray-600'>
+                            <span>Last updated: {dateFormatter(inflationRateData_Res.lastUpdated, 'y-m-d')}</span>
+                            <span>
+                                Source: <a href="https://api.worldbank.org/v2/country/NP/indicator/FP.CPI.TOTL.ZG?format=json&per_page=100" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>World Bank</a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             )

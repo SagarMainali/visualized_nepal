@@ -49,17 +49,18 @@ export default function Sidebar() {
                 <span className={isMenuOpen ? '' : 'hidden'}>Tourism</span>
             </Link>
 
-            {/* <hr /> */}
+            <Link href='/vegetables' className={isActive('/vegetables')}>
+                <FontAwesomeIcon icon={faCarrot} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
+                <span className={isMenuOpen ? '' : 'hidden'}>Vegetables</span>
+            </Link>
+
+            <hr className='h-[1px] bg-slate-800 w-full' />
 
             <Link href='/hospital' className={isActive('/hospital')}>
                 <FontAwesomeIcon icon={faCircleH} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Hospital</span>
             </Link>
 
-            <Link href='/vegetables' className={isActive('/vegetables')}>
-                <FontAwesomeIcon icon={faCarrot} className={!isMenuOpen ? 'text-[22px]' : 'icon-style-default'} />
-                <span className={isMenuOpen ? '' : 'hidden'}>Vegetables</span>
-            </Link>
         </aside>
     )
 }
