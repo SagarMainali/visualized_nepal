@@ -137,9 +137,14 @@ export default function GoldRate() {
                     <p className='text-golden text-[18px]'>Gold price of <strong className='underline'>{timeIndicator(filters.time)}</strong></p>
                     <div className='w-[90%] relative flex justify-center'>
                         <button className='bg-primary-blue px-4 py-2 rounded font-semibold cursor-pointer text-white shadow' onClick={() => getGoldRatesDataAll()}>Get latest price</button>
-                        <span className='text-[12px] text-gray-600 absolute right-0 top-[50%] -translate-y-[50%]'>
-                            Last updated: {dateFormatter(appropriateDate!, 'm/d/y', filters.dateType)}
-                        </span>
+                        <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[12px] text-gray-600'>
+                            <span>
+                                Last updated: {dateFormatter(appropriateDate!, 'm/d/y', filters.dateType)}
+                            </span>
+                            <span>
+                                Source: <a href="https://gahanaonline.com/gold-rate-history/" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Gahana Online</a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             )

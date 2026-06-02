@@ -9,6 +9,7 @@ import { commodities } from './vegetablesList';
 import CustomActiveDot from './CustomActiveDot';
 import SearchableDropDown from './SearchableDropDown';
 import Modal from './Modal';
+import { dateFormatter } from '@/helper/formatters';
 
 export default function Vegetables() {
 
@@ -72,7 +73,7 @@ export default function Vegetables() {
 
     return (
         <>
-            <div className='h-[93vh] w-full'>
+            <div className='h-[94vh] w-full'>
                 {rangedDate_SingleVegetable
                     ? (
                         <div className='h-full w-full flex flex-col justify-center items-center gap-2'>
@@ -95,9 +96,15 @@ export default function Vegetables() {
                                             <Brush dataKey="date" height={30} stroke="#67AE6E" />
                                         </LineChart>
                                     </ResponsiveContainer>
-                                    <p className='text-[#67AE6E]'>Price trend of '{selectedVegetable}'</p>
-                                    <div className='w-[80%] relative flex justify-center'>
-                                        <span className='text-[12px] text-[#67AE6E] absolute right-0 top-[50%] -translate-y-[50%]'>Last updated: {rangedDate_SingleVegetable[rangedDate_SingleVegetable.length - 1]?.date}</span>
+                                    <div className='w-[90%] relative flex justify-center'>
+                                        <p className='text-[#67AE6E]'>Price trend of '{selectedVegetable}'</p>
+                                        <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[#67AE6E] text-[12px]'>
+                                            {/* <span>Last updated: {rangedDate_SingleVegetable[rangedDate_SingleVegetable.length - 1]?.date}</span> */}
+                                            <span>Last updated: {dateFormatter(rangedDate_SingleVegetable[rangedDate_SingleVegetable.length - 1]?.date, 'y-m-d')}</span>
+                                            <span>
+                                                Source: <a href="https://kalimatimarket.gov.np/price" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Kalimati Market</a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </>
                                 : <div className='h-[85%] flex items-center'>

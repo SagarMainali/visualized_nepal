@@ -141,7 +141,7 @@ export default function Hospital() {
     }
 
     return (
-        <div className='h-auto w-full flex flex-col items-center'>
+        <div className='h-auto w-full flex flex-col items-center pb-6'>
             {patientsData_All
                 &&
                 <>
@@ -156,6 +156,12 @@ export default function Hospital() {
                     <Radarchart_Hospital />
                 </>
             }
+
+            <div>
+                <span className='text-[12px] text-gray-600'>
+                    Source: <a href="https://www.kaggle.com/datasets/blueblushed/hospital-dataset-for-practice" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Kaggle</a>
+                </span>
+            </div>
         </div>
     )
 }

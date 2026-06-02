@@ -52,7 +52,7 @@ export default function Barchart_Tourism() {
     return (
         tourismData
             ? (
-                <div className='h-[93vh] w-full flex flex-col items-center gap-6 py-4'>
+                <div className='h-[90vh] w-full flex flex-col items-center gap-6 pt-6'>
                     <div className='w-[90%] flex flex-col items-end gap-2 mr-[80px]'>
                         <div className='view-options'> Type
                             <span onClick={() => handleSelectionsChange('stacked')} className={selections.type === 'stacked' ? 'selected' : ''}>Stacked</span>
@@ -77,7 +77,14 @@ export default function Barchart_Tourism() {
                             <Brush dataKey="year" height={30} stroke="#8884d8" />
                         </ComposedChart>
                     </ResponsiveContainer>
-                    <p className='text-primary-gray text-[18px]'>Tourism Arrival in Nepal from <strong>1963</strong> to <strong>2023</strong></p>
+                    <div className='w-[85%] relative flex justify-center items-center'>
+                        <p className='text-primary-gray text-[18px]'>Tourism Arrival in Nepal from <strong>1963</strong> to <strong>2023</strong></p>
+                        <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[12px] text-gray-600'>
+                            <span>
+                                Source: <a href="https://www.tourism.gov.np/content/82/nepal-tourism-statistics-2023/" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Ministry of Culture, Tourism and Civil Aviation</a>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             )
             : <Loader />
