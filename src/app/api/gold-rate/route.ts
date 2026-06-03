@@ -8,7 +8,7 @@ export async function GET() {
         const data = await getGoldRates();
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
-        const customMessage = "Errored while scraping data!"
+        const customMessage = "Errored while scraping data"
         console.log(customMessage);
         return NextResponse.json({
             message: error instanceof Error

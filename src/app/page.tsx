@@ -1,16 +1,16 @@
-import { getGoldRatesSummary } from "@/lib/dashboard";
+import { getGoldRatesSummary, getInflationSummary } from "@/lib/dashboard";
 
 export default async function Dashboard() {
 
   const [
     goldSummary,
-    // inflationSummary,
+    inflationSummary,
     // tourismSummary,
     // vegetableSummary,
     // hospitalSummary
   ] = await Promise.all([
     getGoldRatesSummary(),
-    // getInflationSummary(),
+    getInflationSummary(),
     // getTourismSummary(),
     // getVegetableSummary(),
     // getHospitalSummary()
@@ -27,16 +27,16 @@ export default async function Dashboard() {
         <div className="border rounded-lg p-4 space-y-1">
           <h2>Gold Price</h2>
           <p className="text-2xl font-bold flex flex-col">
-            <span>Latest: {goldSummary.latest?.price}</span>
-            <span>Previous: {goldSummary.previous?.price}</span>
+            <span>Latest: {goldSummary.latest?.price ?? 0}</span>
+            <span>Previous: {goldSummary.previous?.price ?? 0}</span>
           </p>
         </div>
 
         <div className="border rounded-lg p-4 space-y-1">
           <h2>Inflation</h2>
-          <p className="text-2xl font-bold">
-            0
-            {/* {inflation.currentRate}% */}
+          <p className="text-2xl font-bold flex flex-col">
+            <span>Latest: {inflationSummary.latest?.value ?? 0}</span>
+            <span>Previous: {inflationSummary.previous?.value ?? 0}</span>
           </p>
         </div>
 
