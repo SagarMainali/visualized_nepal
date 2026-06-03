@@ -1,6 +1,5 @@
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import { ChevronDown } from 'lucide-react';
 
 export default function SearchableDropDown({ label, items, onClickHandler, selectedValue }: CustomDropdownPropsT) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,7 +35,7 @@ export default function SearchableDropDown({ label, items, onClickHandler, selec
         <span>
           {label}
         </span>
-        <FontAwesomeIcon icon={faCaretDown} />
+        <ChevronDown size={22} />
       </button>
 
       {isOpen && (

@@ -1,7 +1,5 @@
 import React from 'react';
 import { dateFormatter, priceFormatter } from '@/helper/formatters';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowUp, faWeightHanging, faRulerVertical, faBalanceScale } from '@fortawesome/free-solid-svg-icons';
 
 export default function CustomTooltip_Vegetables({ active, payload }: CustomTooltipT) {
     if (!active || !payload || !payload.length) return null;
@@ -28,20 +26,16 @@ export default function CustomTooltip_Vegetables({ active, payload }: CustomTool
 
             <div className="flex flex-col gap-1 text-gray-700">
                 <span className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faRulerVertical} className="text-blue-400" />
-                    Minimum: <span className="text-black">{priceFormatter(minimum)}</span>
+                    ⬇️ Minimum: <span className="text-black">{priceFormatter(minimum)}</span>
                 </span>
 
                 <span className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faWeightHanging} className="text-orange-400" />
-                    Maximum: <span className="text-black">{priceFormatter(maximum)}</span>
+                    ⬆️ Maximum: <span className="text-black">{priceFormatter(maximum)}</span>
                 </span>
 
                 <span className="flex items-center gap-2 text-black">
-                    <FontAwesomeIcon icon={faBalanceScale} className='text-blue-400' />
-                    Average:
-                    <span className="text-black font-semibold">{priceFormatter(average)}</span>
-                    {fluctuationValue !== 0 && <FontAwesomeIcon icon={fluctuationValue > 0 ? faArrowUp : faArrowDown} />}
+                    ➖ Average: <span className="text-black font-semibold">{priceFormatter(average)}</span>
+                    {fluctuationValue > 0 ? '📈' : '📉'}
                 </span>
             </div>
 

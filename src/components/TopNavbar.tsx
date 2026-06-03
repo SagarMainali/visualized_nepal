@@ -1,10 +1,9 @@
 'use client'
 
 import { AppContext } from '@/context/appContext';
-import { faBars, faGear } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname } from 'next/navigation'
 import { useContext } from 'react';
+import { Menu } from 'lucide-react';
 
 export default function TopNavbar() {
 
@@ -14,11 +13,11 @@ export default function TopNavbar() {
     const { setIsMenuOpen } = useContext(AppContext);
 
     return (
-        <div className='py-3.5 flex justify-between px-6 bg-gray-100 shadow max-h-[58px]'>
-            <FontAwesomeIcon icon={faBars} className='text-[22px] cursor-pointer text-primary-gray' onClick={() => setIsMenuOpen(prev => !prev)} />
-            <span className='font-bold text-primary-blue'>{custom_pathname}</span>
-            <FontAwesomeIcon icon={faGear} className='text-[22px] cursor-pointer text-primary-gray' />
+        <div className='relative py-3.5 flex justify-center bg-gray-100 shadow h-[54px]'>
+            <span className='absolute left-3 cursor-pointer' onClick={() => setIsMenuOpen(prev => !prev)}>
+                <Menu size={24} />
+            </span>
+            <span className='font-bold text-primary-gray'>{custom_pathname}</span>
         </div>
     )
 }
-// onClick={() => setIsMenuOpened(prev => !prev)}
