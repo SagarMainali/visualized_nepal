@@ -1,17 +1,17 @@
-import { getGoldRatesSummary, getInflationSummary } from "@/lib/dashboard";
+import { getGoldRatesDataSummary, getInflationDataSummary, getTourismDataSummary } from "@/lib/dashboard";
 
 export default async function Dashboard() {
 
   const [
     goldSummary,
     inflationSummary,
-    // tourismSummary,
+    tourismSummary,
     // vegetableSummary,
     // hospitalSummary
   ] = await Promise.all([
-    getGoldRatesSummary(),
-    getInflationSummary(),
-    // getTourismSummary(),
+    getGoldRatesDataSummary(),
+    getInflationDataSummary(),
+    getTourismDataSummary(),
     // getVegetableSummary(),
     // getHospitalSummary()
   ]);
@@ -42,9 +42,9 @@ export default async function Dashboard() {
 
         <div className="border rounded-lg p-4 space-y-1">
           <h2>Tourists</h2>
-          <p className="text-2xl font-bold">
-            0
-            {/* {tourism.totalVisitors.toLocaleString()} */}
+          <p className="text-2xl font-bold flex flex-col">
+            <span>Latest: {tourismSummary.latest?.annualGrowthRate ?? 0}</span>
+            <span>Previous: {tourismSummary.previous?.annualGrowthRate ?? 0}</span>
           </p>
         </div>
 

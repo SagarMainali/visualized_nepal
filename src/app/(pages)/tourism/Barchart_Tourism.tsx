@@ -1,30 +1,14 @@
 import Loader from '@/components/Loader';
-import { useState, useEffect } from 'react'
-import axios from 'axios';
+import { useState } from 'react'
 import { Bar, Brush, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import CustomTooltip_Tourism from '@/app/(pages)/tourism/customTooltip_Tourism';
+import tourismData from '@/data/tourismData/tourismData.json';
 
 export default function Barchart_Tourism() {
-
-    const [tourismData, setTourismData] = useState<TourismDataT[] | null>(null);
-
     const [selections, setSelections] = useState({
         type: 'stacked',
         showTrend: false,
     })
-
-    useEffect(() => {
-        const getToursimData = async () => {
-            try {
-                const { data } = await axios.get('/tourismData/tourismData.json');
-                setTourismData(data);
-            } catch (error) {
-                console.log('Failed to fetch tourism data!', error);
-            }
-        }
-
-        getToursimData();
-    }, [])
 
     const handleSelectionsChange = (name: string) => {
         setSelections(prev => {
