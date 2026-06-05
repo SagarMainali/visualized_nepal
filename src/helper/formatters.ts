@@ -31,6 +31,9 @@ export const priceFormatter = (price: number) => {
     })
 }
 
+// format decimal value
+export const decimalFormatter = (value: number) => Number(value.toFixed(2));
+
 export const timeIndicator = (time: number | 'max') => {
     return time === 7
         ? 'last 7 days.'

@@ -1,0 +1,72 @@
+import { Lightbulb, TrendingDown, TrendingUp } from "lucide-react";
+import type {
+    GoldSummary,
+    InflationSummary,
+    TourismSummary,
+    VegetableSummary,
+} from "@/lib/dashboard";
+
+type Props = {
+    goldSummary: GoldSummary;
+    inflationSummary: InflationSummary;
+    tourismSummary: TourismSummary;
+    vegetableSummary: VegetableSummary;
+};
+
+export default function MarketInsightsDashboardCard({
+    goldSummary,
+    inflationSummary,
+    tourismSummary,
+    vegetableSummary,
+}: Props) {
+    const insights = [
+        {
+            positive: goldSummary.percentChange > 0,
+            text: `Gold prices ${goldSummary.percentChange > 0 ? "increased" : "decreased"
+                } by ${Math.abs(goldSummary.percentChange).toFixed(2)}% from yesterday.`,
+        },
+
+        {
+            positive: inflationSummary.percentChange < 0,
+            text: `Inflation moved from ${inflationSummary.previous?.value}% to ${inflationSummary.latest?.value}%.`,
+        },
+
+        {
+            positive: tourismSummary.percentChange > 0,
+            text: `Tourist arrivals grew by ${tourismSummary.percentChange.toFixed(2)}% compared to last year.`,
+        },
+
+        {
+            positive: true,
+            text: `${vegetableSummary.topGainer.commodity} was the strongest-performing vegetable this period.`,
+        },
+    ];
+
+    return (
+        <div className="dashboard-card col-span-full">
+            <div className="flex items-center gap-2 mb-6">
+                <Lightbulb className="w-6 h-6 text-yellow-500" />
+                <h2 className="text-2xl font-bold">
+                    Market Insights
+                </h2>
+            </div>
+
+            <div className="grid gap-3">
+                {insights.map((insight, index) => (
+                    <div
+                        key={index}
+                        className="flex items-start gap-3 rounded-lg border bg-slate-50 p-4"
+                    >
+                        {insight.positive ? (
+                            <TrendingUp className="w-5 h-5 text-green-500 mt-0.5" />
+                        ) : (
+                            <TrendingDown className="w-5 h-5 text-red-500 mt-0.5" />
+                        )}
+
+                        <p>{insight.text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
