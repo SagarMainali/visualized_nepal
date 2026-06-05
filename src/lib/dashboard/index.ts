@@ -2,7 +2,7 @@
 
 import { getGoldRates } from "../getGoldRates";
 import { getInflationData } from "../getInflationData";
-import tourismData from "@/data/tourismData/tourismData.json";
+import { getTourismData } from "../getTourismData";
 
 export async function getGoldRatesDataSummary() {
     const data = await getGoldRates();
@@ -25,8 +25,10 @@ export async function getInflationDataSummary() {
 }
 
 export function getTourismDataSummary() {
+    const data = getTourismData();
+
     return {
-        latest: tourismData.at(-1),
-        previous: tourismData.at(-2)
+        latest: data.at(-1),
+        previous: data.at(-2)
     }
 }

@@ -2,9 +2,11 @@ import Loader from '@/components/Loader';
 import { useState } from 'react'
 import { Bar, Brush, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import CustomTooltip_Tourism from '@/app/(pages)/tourism/customTooltip_Tourism';
-import tourismData from '@/data/tourismData/tourismData.json';
+import { getTourismData } from '@/lib/getTourismData';
 
 export default function Barchart_Tourism() {
+    const tourismData = getTourismData();
+
     const [selections, setSelections] = useState({
         type: 'stacked',
         showTrend: false,
