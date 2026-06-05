@@ -3,6 +3,7 @@
 import { getGoldRates } from "../getGoldRates";
 import { getInflationData } from "../getInflationData";
 import { getTourismData } from "../getTourismData";
+import { getVegetablesDataForDashboard } from "../vegetables";
 
 export async function getGoldRatesDataSummary() {
     const data = await getGoldRates();
@@ -31,4 +32,8 @@ export function getTourismDataSummary() {
         latest: data.at(-1),
         previous: data.at(-2)
     }
+}
+
+export function getVegetablesDataSummary() {
+    return getVegetablesDataForDashboard();
 }

@@ -1,4 +1,5 @@
-import { getGoldRatesDataSummary, getInflationDataSummary, getTourismDataSummary } from "@/lib/dashboard";
+import { decimalFormatter } from "@/helper/formatters";
+import { getGoldRatesDataSummary, getInflationDataSummary, getTourismDataSummary, getVegetablesDataSummary } from "@/lib/dashboard";
 
 export default async function Dashboard() {
 
@@ -6,13 +7,13 @@ export default async function Dashboard() {
     goldSummary,
     inflationSummary,
     tourismSummary,
-    // vegetableSummary,
+    vegetableSummary,
     // hospitalSummary
   ] = await Promise.all([
     getGoldRatesDataSummary(),
     getInflationDataSummary(),
     getTourismDataSummary(),
-    // getVegetableSummary(),
+    getVegetablesDataSummary(),
     // getHospitalSummary()
   ]);
 
@@ -22,48 +23,48 @@ export default async function Dashboard() {
         Dashboard
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-
-        <div className="border rounded-lg p-4 space-y-1">
-          <h2>Gold Price</h2>
-          <p className="text-2xl font-bold flex flex-col">
-            <span>Latest: {goldSummary.latest?.price ?? 0}</span>
-            <span>Previous: {goldSummary.previous?.price ?? 0}</span>
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="border rounded-lg p-4 space-y-2">
+          <h2 className="text-2xl font-bold">Gold Price</h2>
+          <div className="flex flex-col">
+            <p>Latest: {goldSummary.latest?.price ?? 0}</p>
+            <p>Previous: {goldSummary.previous?.price ?? 0}</p>
+          </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-1">
-          <h2>Inflation</h2>
-          <p className="text-2xl font-bold flex flex-col">
-            <span>Latest: {inflationSummary.latest?.value ?? 0}</span>
-            <span>Previous: {inflationSummary.previous?.value ?? 0}</span>
-          </p>
+        <div className="border rounded-lg p-4 space-y-2">
+          <h2 className="text-2xl font-bold">Inflation</h2>
+          <div className="flex flex-col">
+            <p>Latest: {inflationSummary.latest?.value ?? 0}</p>
+            <p>Previous: {inflationSummary.previous?.value ?? 0}</p>
+          </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-1">
-          <h2>Tourists</h2>
-          <p className="text-2xl font-bold flex flex-col">
-            <span>Latest: {tourismSummary.latest?.annualGrowthRate ?? 0}</span>
-            <span>Previous: {tourismSummary.previous?.annualGrowthRate ?? 0}</span>
-          </p>
+        <div className="border rounded-lg p-4 space-y-2">
+          <h2 className="text-2xl font-bold">Tourists</h2>
+          <div className="flex flex-col">
+            <p>Latest: {tourismSummary.latest?.annualGrowthRate ?? 0}</p>
+            <p>Previous: {tourismSummary.previous?.annualGrowthRate ?? 0}</p>
+          </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-1">
-          <h2>Vegetables</h2>
-          <p className="text-2xl font-bold">
-            0
-            {/* RM {vegetables.averagePrice} */}
-          </p>
-        </div>
+        <div className="border rounded-lg p-4 space-y-2">
+          <h2 className="text-2xl font-bold">Vegetables</h2>
 
-        <div className="border rounded-lg p-4 space-y-1">
-          <h2>Hospitals</h2>
-          <p className="text-2xl font-bold">
-            0
-            {/* {hospitals.total} */}
-          </p>
-        </div>
+          <div className="space-y-2">
+            <p><strong>{vegetableSummary.totalCommodities}</strong> commodities tracked</p>
 
+            <div>
+              <p>Top Gainer:</p>
+              <p>{vegetableSummary.topGainer.commodity}: +{decimalFormatter(vegetableSummary.topGainer.percent)}% (+{decimalFormatter(vegetableSummary.topGainer.change)})</p>
+            </div>
+
+            <div>
+              <p>Top Loser:</p>
+              <p>{vegetableSummary.topLoser.commodity}: {decimalFormatter(vegetableSummary.topLoser.percent)}% ({decimalFormatter(vegetableSummary.topLoser.change)})</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

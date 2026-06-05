@@ -1,4 +1,3 @@
-import React from 'react';
 import { dateFormatter, priceFormatter } from '@/helper/formatters';
 
 export default function CustomTooltip_Vegetables({ active, payload }: CustomTooltipT) {
