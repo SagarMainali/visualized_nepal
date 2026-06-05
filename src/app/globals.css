@@ -78,3 +78,7 @@ hr {
 .error-msg {
   @apply text-red-500 text-[13px] absolute left-1 -bottom-5 italic;
 }
+
+.dashboard-card {
+  @apply border rounded-xl p-6 space-y-4 bg-white shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1;
+}

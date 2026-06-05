@@ -1,5 +1,15 @@
-import { decimalFormatter } from "@/helper/formatters";
+import DashboardCard from "@/components/DashboardCard";
+import MarketInsightsDashboardCard from "@/components/MarketInsightsDashboardCard";
+import VegetablesDashboardCard from "@/components/VegetablesDashboardCard";
+import { decimalFormatter, priceFormatter } from "@/helper/formatters";
 import { getGoldRatesDataSummary, getInflationDataSummary, getTourismDataSummary, getVegetablesDataSummary } from "@/lib/dashboard";
+import {
+  Coins,
+  TrendingUp,
+  Users,
+  Carrot
+} from "lucide-react";
+import Link from "next/link";
 
 export default async function Dashboard() {
 
@@ -8,64 +18,145 @@ export default async function Dashboard() {
     inflationSummary,
     tourismSummary,
     vegetableSummary,
-    // hospitalSummary
   ] = await Promise.all([
     getGoldRatesDataSummary(),
     getInflationDataSummary(),
     getTourismDataSummary(),
     getVegetablesDataSummary(),
-    // getHospitalSummary()
   ]);
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">
-        Dashboard
-      </h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="rounded-lg border p-4 bg-white">
+          <p className="text-sm text-gray-500">Gold</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div className="border rounded-lg p-4 space-y-2">
-          <h2 className="text-2xl font-bold">Gold Price</h2>
-          <div className="flex flex-col">
-            <p>Latest: {goldSummary.latest?.price ?? 0}</p>
-            <p>Previous: {goldSummary.previous?.price ?? 0}</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Coins className="w-5 h-5 text-amber-500" />
+
+            <span
+              className={
+                goldSummary.percentChange > 0
+                  ? "text-green-600 font-semibold"
+                  : "text-red-600 font-semibold"
+              }
+            >
+              {goldSummary.percentChange > 0 ? "↑" : "↓"}
+              {" "}
+              {decimalFormatter(Math.abs(goldSummary.percentChange))}%
+            </span>
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-2">
-          <h2 className="text-2xl font-bold">Inflation</h2>
-          <div className="flex flex-col">
-            <p>Latest: {inflationSummary.latest?.value ?? 0}</p>
-            <p>Previous: {inflationSummary.previous?.value ?? 0}</p>
+        <div className="rounded-lg border p-4 bg-white">
+          <p className="text-sm text-gray-500">Inflation</p>
+
+          <div className="flex items-center gap-2 mt-2">
+            <TrendingUp className="w-5 h-5 text-blue-500" />
+
+            <span
+              className={
+                inflationSummary.percentChange > 0
+                  ? "text-green-600 font-semibold"
+                  : "text-red-600 font-semibold"
+              }
+            >
+              {inflationSummary.percentChange > 0 ? "↑" : "↓"}
+              {" "}
+              {decimalFormatter(Math.abs(inflationSummary.percentChange))}%
+            </span>
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-2">
-          <h2 className="text-2xl font-bold">Tourists</h2>
-          <div className="flex flex-col">
-            <p>Latest: {tourismSummary.latest?.annualGrowthRate ?? 0}</p>
-            <p>Previous: {tourismSummary.previous?.annualGrowthRate ?? 0}</p>
+        <div className="rounded-lg border p-4 bg-white">
+          <p className="text-sm text-gray-500">Tourism</p>
+
+          <div className="flex items-center gap-2 mt-2">
+            <Users className="w-5 h-5 text-purple-500" />
+
+            <span
+              className={
+                tourismSummary.percentChange > 0
+                  ? "text-green-600 font-semibold"
+                  : "text-red-600 font-semibold"
+              }
+            >
+              {tourismSummary.percentChange > 0 ? "↑" : "↓"}
+              {" "}
+              {decimalFormatter(Math.abs(tourismSummary.percentChange))}%
+            </span>
           </div>
         </div>
 
-        <div className="border rounded-lg p-4 space-y-2">
-          <h2 className="text-2xl font-bold">Vegetables</h2>
+        <div className="rounded-lg border p-4 bg-white">
+          <p className="text-sm text-gray-500">Vegetables</p>
 
-          <div className="space-y-2">
-            <p><strong>{vegetableSummary.totalCommodities}</strong> commodities tracked</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Carrot className="w-5 h-5 text-green-500" />
 
-            <div>
-              <p>Top Gainer:</p>
-              <p>{vegetableSummary.topGainer.commodity}: +{decimalFormatter(vegetableSummary.topGainer.percent)}% (+{decimalFormatter(vegetableSummary.topGainer.change)})</p>
-            </div>
-
-            <div>
-              <p>Top Loser:</p>
-              <p>{vegetableSummary.topLoser.commodity}: {decimalFormatter(vegetableSummary.topLoser.percent)}% ({decimalFormatter(vegetableSummary.topLoser.change)})</p>
-            </div>
+            <span className="font-semibold text-green-600">
+              {vegetableSummary.topGainer.commodity}
+            </span>
           </div>
         </div>
       </div>
-    </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Link href="/gold-rate">
+          <DashboardCard
+            title="Gold Price"
+            icon={Coins}
+            iconColor="text-amber-500"
+            value={`${priceFormatter(
+              goldSummary.latest?.price ?? 0
+            )} today`}
+            subtitle="Latest value"
+            previousValue={priceFormatter(
+              goldSummary.previous?.price ?? 0
+            )}
+            percentChange={goldSummary.percentChange}
+          />
+        </Link>
+
+        <Link href="/inflation">
+          <DashboardCard
+            title="Inflation"
+            icon={TrendingUp}
+            iconColor="text-blue-500"
+            value={`${inflationSummary.latest?.value}%`}
+            subtitle={`Year ${inflationSummary.latest?.year}`}
+            previousValue={`${inflationSummary.previous?.value}%`}
+            percentChange={inflationSummary.percentChange}
+          />
+        </Link>
+
+        <Link href="/tourism">
+          <DashboardCard
+            title="Tourism"
+            icon={Users}
+            iconColor="text-purple-500"
+            value={tourismSummary.latest?.total.toLocaleString() ?? ''}
+            subtitle={`Tourists in ${tourismSummary.latest?.year}`}
+            previousValue={tourismSummary.previous?.total.toLocaleString() ?? ''}
+            percentChange={tourismSummary.percentChange}
+          />
+        </Link>
+
+        <Link href="/vegetables">
+          <VegetablesDashboardCard
+            totalCommodities={vegetableSummary.totalCommodities}
+            topGainer={vegetableSummary.topGainer}
+            topLoser={vegetableSummary.topLoser}
+          />
+        </Link>
+
+        <MarketInsightsDashboardCard
+          goldSummary={goldSummary}
+          inflationSummary={inflationSummary}
+          tourismSummary={tourismSummary}
+          vegetableSummary={vegetableSummary}
+        />
+      </div>
+    </div >
   );
 }
