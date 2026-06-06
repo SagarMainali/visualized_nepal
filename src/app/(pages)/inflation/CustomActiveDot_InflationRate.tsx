@@ -1,4 +1,4 @@
-import { getColor } from "./getColor";
+import { getColor } from "./getTooltipInfo";
 
 export default function CustomActiveDot_InflationRate({ cx, cy, value }: CustomActiveDropT) {
 
