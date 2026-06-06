@@ -80,5 +80,5 @@ hr {
 }
 
 .dashboard-card {
-  @apply border rounded-xl p-6 space-y-4 bg-white shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1;
+  @apply h-full border rounded-xl p-6 space-y-4 bg-white shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1;
 }

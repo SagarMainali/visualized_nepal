@@ -17,7 +17,7 @@ export default function TopNavbar() {
             <span className='absolute left-3 cursor-pointer' onClick={() => setIsMenuOpen(prev => !prev)}>
                 <Menu size={24} />
             </span>
-            <span className='font-bold text-primary-gray'>{custom_pathname}</span>
+            <span className='font-bold'>{custom_pathname}</span>
         </div>
     )
 }

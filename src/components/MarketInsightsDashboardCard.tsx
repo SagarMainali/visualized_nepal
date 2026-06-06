@@ -21,24 +21,30 @@ export default function MarketInsightsDashboardCard({
 }: Props) {
     const insights = [
         {
-            positive: goldSummary.percentChange > 0,
-            text: `Gold prices ${goldSummary.percentChange > 0 ? "increased" : "decreased"
-                } by ${Math.abs(goldSummary.percentChange).toFixed(2)}% from yesterday.`,
+            positive: (goldSummary?.percentChange ?? 0) > 0,
+            text: `Gold prices ${(goldSummary?.percentChange ?? 0) > 0
+                ? "increased"
+                : "decreased"} 
+                by ${Math.abs(goldSummary?.percentChange ?? 0).toFixed(2)}% from yesterday.`,
         },
 
         {
-            positive: inflationSummary.percentChange < 0,
-            text: `Inflation moved from ${inflationSummary.previous?.value}% to ${inflationSummary.latest?.value}%.`,
+            positive: (inflationSummary?.percentChange ?? 0) > 0,
+            text: `Inflation rate moved from ${inflationSummary?.previous?.value ?? "N/A"}% to 
+            ${inflationSummary?.latest?.value ?? "N/A"}%.`,
         },
 
         {
-            positive: tourismSummary.percentChange > 0,
-            text: `Tourist arrivals grew by ${tourismSummary.percentChange.toFixed(2)}% compared to last year.`,
+            positive: (tourismSummary?.percentChange ?? 0) > 0,
+            text: `Tourist arrivals growth rate changed by 
+            ${(tourismSummary?.percentChange ?? 0).toFixed(2)}% compared to last year.`,
         },
 
         {
             positive: true,
-            text: `${vegetableSummary.topGainer.commodity} was the strongest-performing vegetable this period.`,
+            text: vegetableSummary?.topGainer
+                ? `"${vegetableSummary.topGainer.commodity}" recorded the biggest price increase among vegetables today.`
+                : "No vegetable performance data available.",
         },
     ];
 
