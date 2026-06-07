@@ -12,7 +12,8 @@ export const dateFormatter = (date: string, format: 'm/d/y' | 'y-m-d', type: 'AD
     } else if (format === 'y-m-d') {
         [year, monthStr, dayStr] = date.split(separator);
     } else {
-        throw new Error('Invalid date format!');
+        // throw new Error('Invalid date format!');
+        return 'Date unavailable!'
     }
 
     const month = parseInt(monthStr, 10) - 1; //matching with index
