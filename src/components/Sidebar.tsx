@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AppContext } from '@/context/appContext';
-import { LayoutDashboard, Gem, CircleDollarSign, TicketsPlane, Carrot, Hospital } from 'lucide-react';
+import { LayoutDashboard, Coins, TrendingUp, Users, Carrot, Hospital } from 'lucide-react';
 
 export default function Sidebar() {
 
@@ -15,7 +15,7 @@ export default function Sidebar() {
     const { isMenuOpen } = useContext(AppContext);
 
     return (
-        <aside className={`h-screen py-2 border border-r-2 border-r-slate-200 shadow-2xl flex flex-col gap-1 text-primary-gray font-semibold ${isMenuOpen ? 'w-[250px] px-2.5' : 'w-[60px] px-2 items-center'}`}>
+        <aside className={`h-screen py-2 border border-r-2 border-r-slate-200 shadow-2xl flex flex-col gap-1 text-primary-gray font-semibold ${isMenuOpen ? 'w-[230px] px-3' : 'w-[60px] px-2 items-center'}`}>
             {
                 isMenuOpen
                     ? <p className='p-2 font-extrabold text-xl tracking-tight'>Visualized Nepal</p>
@@ -23,19 +23,19 @@ export default function Sidebar() {
             }
 
             <Link href='/' className={`mt-1 navlink-default ${isActive('/')}`}>
-                <LayoutDashboard size={24} />
+                <LayoutDashboard size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Dashboard</span>
             </Link>
 
             <hr className='h-[1.5px] bg-gray-200 w-full' />
 
             <Link href='/gold-rate' className={`-mt-1 navlink-default ${isActive('/gold-rate')}`}>
-                <Gem size={22} />
+                <Coins size={22} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Gold Trend</span>
             </Link>
 
             <Link href='/inflation' className={`navlink-default ${isActive('/inflation')}`}>
-                <CircleDollarSign size={24} />
+                <TrendingUp size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Inflation</span>
             </Link>
 
@@ -50,19 +50,19 @@ export default function Sidebar() {
             </Link> */}
 
             <Link href='/tourism' className={`navlink-default ${isActive('/tourism')}`}>
-                <TicketsPlane size={24} />
+                <Users size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Tourism</span>
             </Link>
 
             <Link href='/vegetables' className={`navlink-default ${isActive('/vegetables')}`}>
-                <Carrot size={24} />
+                <Carrot size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Vegetables</span>
             </Link>
 
             <hr className='h-[1.5px] bg-gray-200 w-full' />
 
             <Link href='/hospital' className={`-mt-1 navlink-default ${isActive('/hospital')}`}>
-                <Hospital className='' size={24} />
+                <Hospital size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Hospital</span>
             </Link>
 

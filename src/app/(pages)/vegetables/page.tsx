@@ -2,7 +2,7 @@
 
 import Loader from '@/components/Loader';
 import axios from 'axios';
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { LineChart, Line, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis, CartesianGrid, Brush, Label } from 'recharts';
 import CustomTooltip_Vegetables from './CustomTooltip_Vegetables';
 import { commodities } from './vegetablesList';

@@ -1,7 +1,7 @@
 import DashboardCard from "@/components/DashboardCard";
 import MarketInsightsDashboardCard from "@/components/MarketInsightsDashboardCard";
 import VegetablesDashboardCard from "@/components/VegetablesDashboardCard";
-import { decimalFormatter, priceFormatter } from "@/helper/formatters";
+import { dateFormatter, decimalFormatter, priceFormatter } from "@/helper/formatters";
 import { getGoldRatesDataSummary, getInflationDataSummary, getTourismDataSummary, getVegetablesDataSummary } from "@/lib/dashboard";
 import {
   Coins,
@@ -9,7 +9,6 @@ import {
   Users,
   Carrot
 } from "lucide-react";
-import Link from "next/link";
 
 export default async function Dashboard() {
 
@@ -102,53 +101,49 @@ export default async function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Link href="/gold-rate">
-          <DashboardCard
-            title="Gold Price"
-            icon={Coins}
-            iconColor="text-amber-500"
-            value={`${priceFormatter(
-              goldSummary.latest?.price ?? 0
-            )} today`}
-            subtitle="Latest value"
-            previousValue={priceFormatter(
-              goldSummary.previous?.price ?? 0
-            )}
-            percentChange={goldSummary.percentChange}
-          />
-        </Link>
+        <DashboardCard
+          path="gold-rate"
+          title="Gold"
+          icon={Coins}
+          iconColor="text-amber-500"
+          value={priceFormatter(goldSummary.latest?.price ?? 0)}
+          date={dateFormatter(goldSummary.latest?.englishDate!, 'm/d/y')}
+          previousValue={priceFormatter(goldSummary.previous?.price ?? 0)}
+          percentChange={goldSummary.percentChange}
+        />
 
-        <Link href="/inflation">
-          <DashboardCard
-            title="Inflation"
-            icon={TrendingUp}
-            iconColor="text-blue-500"
-            value={`${inflationSummary.latest?.value}%`}
-            subtitle={`Year ${inflationSummary.latest?.year}`}
-            previousValue={`${inflationSummary.previous?.value}%`}
-            percentChange={inflationSummary.percentChange}
-          />
-        </Link>
+        <DashboardCard
+          path="inflation"
+          title="Inflation"
+          icon={TrendingUp}
+          iconColor="text-blue-500"
+          value={`${inflationSummary.latest?.value}%`}
+          date={`Year ${inflationSummary.latest?.year}`}
+          previousValue={`${inflationSummary.previous?.value}%`}
+          percentChange={inflationSummary.percentChange}
+          isRisingGood={false}
+        />
 
-        <Link href="/tourism">
-          <DashboardCard
-            title="Tourism"
-            icon={Users}
-            iconColor="text-purple-500"
-            value={tourismSummary.latest?.total.toLocaleString() ?? ''}
-            subtitle={`Tourists in ${tourismSummary.latest?.year}`}
-            previousValue={tourismSummary.previous?.total.toLocaleString() ?? ''}
-            percentChange={tourismSummary.percentChange}
-          />
-        </Link>
+        <DashboardCard
+          path="tourism"
+          title="Tourism"
+          annotation="arrivals"
+          icon={Users}
+          iconColor="text-purple-500"
+          value={tourismSummary.latest?.total.toLocaleString() ?? ''}
+          date={`Year ${tourismSummary.latest?.year}`}
+          previousValue={tourismSummary.previous?.total.toLocaleString() ?? ''}
+          percentChange={tourismSummary.percentChange}
+          isRisingGood={true}
+        />
 
-        <Link href="/vegetables">
-          <VegetablesDashboardCard
-            totalCommodities={vegetableSummary.totalCommodities}
-            topGainer={vegetableSummary.topGainer}
-            topLoser={vegetableSummary.topLoser}
-          />
-        </Link>
+        <VegetablesDashboardCard
+          path="vegetables"
+          totalCommodities={vegetableSummary.totalCommodities}
+          topGainer={vegetableSummary.topGainer}
+          topLoser={vegetableSummary.topLoser}
+          annotation="commodities tracked"
+        />
 
         <MarketInsightsDashboardCard
           goldSummary={goldSummary}

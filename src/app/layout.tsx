@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased box-border h-screen flex`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased box-border min-h-screen flex`}>
 
         <AppContextProvider>
 
@@ -35,7 +35,7 @@ export default function RootLayout({
 
           <main className="h-full flex-1 flex flex-col">
             <TopNavbar />
-            <div className="flex-1 px-6 overflow-auto">
+            <div className="h-full flex-1 px-6 overflow-auto">
               {children}
             </div>
           </main>

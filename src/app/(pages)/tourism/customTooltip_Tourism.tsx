@@ -7,7 +7,7 @@ export default function CustomTooltip_Tourism({ active, payload }: CustomTooltip
     const { year, byAir, byLand, total, annualGrowthRate } = payload[0].payload;
 
     return (
-        <div className="px-5 py-2 shadow-2xl rounded border border-light flex flex-col bg-slate-50/90">
+        <div className="px-5 py-2 shadow-2xl rounded border border-light flex flex-col bg-white/70 backdrop-blur-md">
             <p className="font-semibold mb-1 text-primary-gray">Year: {year}</p>
             <hr />
             <span className='font-semibold text-[#4E6688]'>Arrival by air: {byAir.number.toLocaleString('en-IN')} ({byAir.percent}%)</span>
