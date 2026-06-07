@@ -1,4 +1,4 @@
-import { decimalFormatter } from "@/helper/formatters";
+import { decimalFormatter, priceFormatter } from "@/helper/formatters";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -12,6 +12,7 @@ type Props = {
   date: string;
   previousValue: string;
   percentChange: number;
+  valueChange?: number;
   isRisingGood?: boolean;
 };
 
@@ -25,6 +26,7 @@ export default function DashboardCard({
   date,
   previousValue,
   percentChange,
+  valueChange,
   isRisingGood
 }: Props) {
 
@@ -68,6 +70,8 @@ export default function DashboardCard({
             }
 
             {decimalFormatter(Math.abs(percentChange))}%
+
+            {valueChange && <span className="ml-1">({priceFormatter(valueChange)})</span>}
           </p>
 
           <p className="mt-3">
