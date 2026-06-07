@@ -100,7 +100,7 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <DashboardCard
           path="gold-rate"
           title="Gold"
@@ -110,6 +110,7 @@ export default async function Dashboard() {
           date={dateFormatter(goldSummary.latest?.englishDate!, 'm/d/y')}
           previousValue={priceFormatter(goldSummary.previous?.price ?? 0)}
           percentChange={goldSummary.percentChange}
+          valueChange={goldSummary.latest?.price! - goldSummary.previous?.price!}
         />
 
         <DashboardCard

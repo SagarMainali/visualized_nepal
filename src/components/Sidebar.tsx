@@ -1,21 +1,24 @@
 'use client'
 
-import { useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { AppContext } from '@/context/appContext';
 import { LayoutDashboard, Coins, TrendingUp, Users, Carrot, Hospital } from 'lucide-react';
 
-export default function Sidebar() {
+type Props = {
+    isMenuOpen: boolean;
+    sidebarWidthWhenOpened: string;
+    sidebarWidthWhenClosed: string;
+}
 
+export default function Sidebar({ isMenuOpen, sidebarWidthWhenOpened, sidebarWidthWhenClosed }: Props) {
     const pathname = usePathname();
 
     const isActive = (path: string) => path === pathname ? 'active' : '';
 
-    const { isMenuOpen } = useContext(AppContext);
-
     return (
-        <aside className={`h-screen py-2 border border-r-2 border-r-slate-200 shadow-2xl flex flex-col gap-1 text-primary-gray font-semibold ${isMenuOpen ? 'w-[230px] px-3' : 'w-[60px] px-2 items-center'}`}>
+        <aside className={`fixed inset-y-0 z-10 bg-white py-2 border border-r-2 border-r-slate-200 shadow-2xl flex flex-col gap-1 text-primary-gray font-semibold ${isMenuOpen ? 'px-3' : 'px-2 items-center'}`}
+            style={{ width: isMenuOpen ? sidebarWidthWhenOpened : sidebarWidthWhenClosed }}
+        >
             {
                 isMenuOpen
                     ? <p className='p-2 font-extrabold text-xl tracking-tight'>Visualized Nepal</p>
@@ -39,16 +42,6 @@ export default function Sidebar() {
                 <span className={isMenuOpen ? '' : 'hidden'}>Inflation</span>
             </Link>
 
-            {/* <Link href='/remittance' className={`navlink-default ${isActive('/remittance')}`}>
-                <HandCoins />
-                <span className={isMenuOpen ? '' : 'hidden'}>Remittance Inflow</span>
-            </Link>
-
-            <Link href='/gasoline-price' className={`navlink-default ${isActive('/gasoline-price')}`}>
-                <Fuel />
-                <span className={isMenuOpen ? '' : 'hidden'}>Gasoline Prices</span>
-            </Link> */}
-
             <Link href='/tourism' className={`navlink-default ${isActive('/tourism')}`}>
                 <Users size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Tourism</span>
@@ -65,7 +58,16 @@ export default function Sidebar() {
                 <Hospital size={24} className={isMenuOpen ? 'mr-2' : ''} />
                 <span className={isMenuOpen ? '' : 'hidden'}>Hospital</span>
             </Link>
-
         </aside>
     )
 }
+
+{/* <Link href='/remittance' className={`navlink-default ${isActive('/remittance')}`}>
+                <HandCoins />
+                <span className={isMenuOpen ? '' : 'hidden'}>Remittance Inflow</span>
+            </Link>
+
+            <Link href='/gasoline-price' className={`navlink-default ${isActive('/gasoline-price')}`}>
+                <Fuel />
+                <span className={isMenuOpen ? '' : 'hidden'}>Gasoline Prices</span>
+            </Link> */}

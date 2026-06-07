@@ -25,7 +25,7 @@ export default function MarketInsightsDashboardCard({
             text: `Gold prices ${(goldSummary?.percentChange ?? 0) > 0
                 ? "increased"
                 : "decreased"} 
-                by ${Math.abs(goldSummary?.percentChange ?? 0).toFixed(2)}% from yesterday.`,
+                by ${Math.abs(goldSummary?.percentChange ?? 0).toFixed(2)}% the previous recorded price.`,
         },
 
         {
@@ -49,7 +49,7 @@ export default function MarketInsightsDashboardCard({
     ];
 
     return (
-        <div className="dashboard-card col-span-full">
+        <div className="dashboard-card col-span-full hover:translate-y-0! shadow-2xl!">
             <div className="flex items-center gap-2 mb-6">
                 <Lightbulb className="w-6 h-6 text-yellow-500" />
                 <h2 className="text-2xl font-bold">
