@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getGoldRates } from "@/lib/getGoldRates";
 
-export const runtime = "nodejs";
+// export const runtime = "nodejs";
+// runtime is nodejs by default in nextjs 16+ and also cannot be use alongside 'cacheComponents: true'
 
 export async function GET() {
     try {

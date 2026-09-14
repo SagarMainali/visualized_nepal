@@ -1,4 +1,4 @@
-// all this function are used for getting dashboards data
+// all these functions are used for getting dashboards data
 
 import { getGoldRates } from "../getGoldRates";
 import { getInflationData } from "../getInflationData";
@@ -63,7 +63,7 @@ export function getTourismDataSummary() {
     };
 }
 
-export async function getVegetablesDataSummary() {
+export async function getVegetablesDataSummary(){
     const data = await getVegetablesDataForDashboard();
     return data;
 }
