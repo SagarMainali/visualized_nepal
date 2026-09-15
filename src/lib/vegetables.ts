@@ -1,9 +1,10 @@
 import clientPromise from '@/lib/database/dbConnect';
-import {cacheLife} from 'next/cache';
+import {cacheLife, cacheTag} from 'next/cache';
 
 export async function getParticularVegetableData(vegetableName: string): Promise<RangedDate_SingleVegetable_ForChartT[]> {
     'use cache';
-    cacheLife("days");
+    cacheLife('days');
+    cacheTag('vegetables-data');
 
     const client = await clientPromise;
     const db = client.db();
