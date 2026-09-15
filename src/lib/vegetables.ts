@@ -53,6 +53,7 @@ export async function getParticularVegetableData(vegetableName: string): Promise
 export async function getVegetablesDataForDashboard() {
     'use cache';
     cacheLife('days');
+    cacheTag('vegetables-data');
 
     const client = await clientPromise;
     const db = client.db();
