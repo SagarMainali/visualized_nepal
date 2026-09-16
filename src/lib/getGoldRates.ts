@@ -1,13 +1,14 @@
 import "server-only";
 import * as cheerio from "cheerio";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 
 const goldRatesDataUrl = "https://gahanaonline.com/gold-rate-history/";
 
 export async function getGoldRates(): Promise<GoldRateDataT[]> {
     // const $ = await cheerio.fromURL(goldRatesData_url);
     'use cache'; // cache the response data
-    cacheLife('days'); // revalidate cache everyday
+    cacheLife('hours'); // revalidate cache every hour
+    cacheTag('gold-data'); // for manual revalidation through built-in webhook
 
     const res = await fetch(goldRatesDataUrl, {
         headers: {

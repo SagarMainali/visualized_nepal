@@ -15,7 +15,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Missing tag param" }, { status: 400 });
     }
 
-    // Purge the cache entry instantly across all servers
+    // doesn't hard wipe the cache - instead marks the cached data as stale, the next request gets this staled data but fetches fresh data
+    // on the background and updates the cache slot with this fresh data.
     revalidateTag(tag, 'max');
 
     return NextResponse.json({ revalidated: true, now: Date.now() });
