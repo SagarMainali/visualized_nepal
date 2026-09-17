@@ -1,11 +1,12 @@
 import axios from "axios";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 
 const inflationData_url = "https://api.worldbank.org/v2/country/NP/indicator/FP.CPI.TOTL.ZG?format=json&per_page=100";
 
 export async function getInflationData(): Promise<InflationRateData_ResponseT> {
     'use cache';
-    cacheLife('weeks');
+    cacheLife('max');
+    cacheTag('inflation-data');
 
     const response = await axios.get(inflationData_url);
     const data = response.data;
