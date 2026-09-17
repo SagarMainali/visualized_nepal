@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from 'lucide-react';
 
-export default function SearchableDropDown({ label, items, onClickHandler, selectedValue }: CustomDropdownPropsT) {
+type SearchableDropdownPropsT = Omit<CustomDropdownPropsT, 'onClickHandler'> & {
+  onClickHandler: (nextVegetable: string) => Promise<void>;
+};
+
+export default function SearchableDropDown({ label, items, onClickHandler, selectedValue }: SearchableDropdownPropsT) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

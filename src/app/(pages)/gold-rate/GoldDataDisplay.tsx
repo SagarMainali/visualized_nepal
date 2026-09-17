@@ -70,41 +70,36 @@ export default function GoldDataDisplay({ initialGoldData }: GoldDataDisplayProp
     const appropriateDate = lastItem?.[filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'];
 
     return (
-        goldRatesDataFiltered
-            ? (
-                <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-4'>
+        <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-4'>
+            <div className='w-[90%] flex flex-row-reverse gap-2'>
+                <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} selectedValue={filters.dateType} />
+                <CustomDropDown label="Set time" items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} selectedValue={filters.time} />
+            </div>
 
-                    <div className='w-[90%] flex flex-row-reverse gap-2'>
+            <ResponsiveContainer width="90%" height="70%">
+                <LineChart data={goldRatesDataFiltered} margin={{ right: 20, bottom: 50 }}>
+                    <CartesianGrid strokeDasharray="2 2" />
+                    <XAxis dataKey={filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'} angle={-45} textAnchor="end" tickMargin={5} />
+                    <YAxis domain={['auto', 'auto']} tickFormatter={(value) => `${(value / 1000)}k`} />
+                    <Tooltip content={<CustomTooltip_GoldRate dateType={filters.dateType} />} />
+                    <Legend verticalAlign='top' />
+                    <Line dataKey="price" stroke="#FFD700" strokeWidth={2} activeDot={{ r: 8 }} dot={false} type="monotone" name='Price' />
+                </LineChart>
+            </ResponsiveContainer>
 
-                        <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} selectedValue={filters.dateType} />
+            <p className='text-yellow-300 text-[18px]'>Gold price of <strong className='underline'>{timeIndicator(filters.time)}</strong></p>
 
-                        <CustomDropDown label="Set time" items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} selectedValue={filters.time} />
-
-                    </div>
-                    <ResponsiveContainer width="90%" height="70%">
-                        <LineChart data={goldRatesDataFiltered} margin={{ right: 20, bottom: 50 }}>
-                            <CartesianGrid strokeDasharray="2 2" />
-                            <XAxis dataKey={filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'} angle={-45} textAnchor="end" tickMargin={5} />
-                            <YAxis domain={['auto', 'auto']} tickFormatter={(value) => `${(value / 1000)}k`} />
-                            <Tooltip content={<CustomTooltip_GoldRate dateType={filters.dateType} />} />
-                            <Legend verticalAlign='top' />
-                            <Line dataKey="price" stroke="#FFD700" strokeWidth={2} activeDot={{ r: 8 }} dot={false} type="monotone" name='Price' />
-                        </LineChart>
-                    </ResponsiveContainer>
-                    <p className='text-yellow-300 text-[18px]'>Gold price of <strong className='underline'>{timeIndicator(filters.time)}</strong></p>
-                    <div className='w-[90%] relative flex justify-center'>
-                        {/* <button className='bg-gray-600 px-4 py-2 rounded font-semibold cursor-pointer text-white shadow hover:scale-105 transition-all duration-200' onClick={() => getGoldRatesDataAll()}>Get latest price</button> */}
-                        <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[12px] text-gray-600'>
-                            <span>
-                                Last updated: {dateFormatter(appropriateDate!, 'm/d/y', filters.dateType)}
-                            </span>
-                            <span>
-                                Source: <a href="https://gahanaonline.com/gold-rate-history/" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Gahana Online</a>
-                            </span>
-                        </div>
-                    </div>
+            <div className='w-[90%] relative flex justify-center'>
+                {/* <button className='bg-gray-600 px-4 py-2 rounded font-semibold cursor-pointer text-white shadow hover:scale-105 transition-all duration-200' onClick={() => getGoldRatesDataAll()}>Get latest price</button> */}
+                <div className='absolute right-0 top-[50%] -translate-y-[50%] flex flex-col text-[12px] text-gray-600'>
+                    <span>
+                        Last updated: {dateFormatter(appropriateDate!, 'm/d/y', filters.dateType)}
+                    </span>
+                    <span>
+                        Source: <a href="https://gahanaonline.com/gold-rate-history/" target='_blank' rel="noreferrer noopener" className='underline underline-offset-2'>Gahana Online</a>
+                    </span>
                 </div>
-            )
-            : <Loader />
+            </div>
+        </div>
     )
 }
