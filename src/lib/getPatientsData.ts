@@ -1,4 +1,4 @@
-import PatientsData from '@/data/HospitalData/patientsData.json';
+import PatientsData from '@/data/hospitalData/patientsData.json';
 
 export function getPatientsData() {
     return PatientsData as PatientsDataAllT[];
