@@ -1,7 +1,7 @@
 import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital from '@/app/(pages)/hospital/customTooltip_Hospital';
 import Loader from '@/components/Loader';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Bar, CartesianGrid, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LabelList, Label } from 'recharts';
 
 export default function Barchart_Hospital_SingleCategory({ patientsData_All, getPatientsByCategory }: ChartPropsT) {

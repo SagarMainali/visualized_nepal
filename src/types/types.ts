@@ -62,9 +62,10 @@ type PatientsDataAllT = {
     Gender: string,
     Condition: string,
     Procedure: string,
-    Cost: string,
+    Cost: number,
     'Length of Stay': number,
     Readmission: string,
+    Outcome: string,
     Satisfaction: number
 }
 // [key: string]: string | number
