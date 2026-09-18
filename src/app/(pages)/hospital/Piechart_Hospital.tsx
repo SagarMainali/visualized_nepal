@@ -1,7 +1,7 @@
 import CustomDropDown from '@/components/CustomDropdown';
 import CustomTooltip_Hospital from '@/app/(pages)/hospital/customTooltip_Hospital';
 import Loader from '@/components/Loader';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell, Sector } from 'recharts';
 
 export default function Piechart_Hospital({ patientsData_All, getPatientsByCategory }: ChartPropsT) {

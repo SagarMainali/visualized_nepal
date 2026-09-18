@@ -5,8 +5,6 @@ export default function TourismPage() {
     const tourismData = getTourismData();
 
     return (
-        <div className='h-auto w-full flex flex-col items-center'>
-            <Barchart_Tourism tourismData={tourismData} />
-        </div>
+        <Barchart_Tourism tourismData={tourismData} />
     )
 }

@@ -1,5 +1,4 @@
 import Loader from '@/components/Loader';
-import React from 'react'
 import { ResponsiveContainer, Tooltip, RadarChart, PolarGrid, PolarAngleAxis, Radar, PolarRadiusAxis, Legend } from 'recharts';
 
 export default function Radarchart_Hospital() {

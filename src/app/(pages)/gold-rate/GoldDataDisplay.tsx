@@ -71,16 +71,16 @@ export default function GoldDataDisplay({ initialGoldData }: GoldDataDisplayProp
 
     return (
         <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-4'>
-            <div className='w-[90%] flex flex-row-reverse gap-2'>
+            <div className='w-[85%] flex flex-row-reverse gap-2'>
                 <CustomDropDown label="Date type" items={["AD", "BS"]} onClickHandler={changeDateTypeInFilter} selectedValue={filters.dateType} />
                 <CustomDropDown label="Set time" items={time_DropdownItems} onClickHandler={getGoldRatesDataByTime} selectedValue={filters.time} />
             </div>
 
             <ResponsiveContainer width="90%" height="70%">
-                <LineChart data={goldRatesDataFiltered} margin={{ right: 20, bottom: 50 }}>
+                <LineChart data={goldRatesDataFiltered} margin={{ left: 20, right: 20, bottom: 50 }}>
                     <CartesianGrid strokeDasharray="2 2" />
                     <XAxis dataKey={filters.dateType === 'AD' ? 'englishDate' : 'nepaliDate'} angle={-45} textAnchor="end" tickMargin={5} />
-                    <YAxis domain={['auto', 'auto']} tickFormatter={(value) => `${(value / 1000)}k`} />
+                    <YAxis domain={['auto', 'auto']} width={60} tickFormatter={(value) => `${(value / 1000)}k`} />
                     <Tooltip content={<CustomTooltip_GoldRate dateType={filters.dateType} />} />
                     <Legend verticalAlign='top' />
                     <Line dataKey="price" stroke="#FFD700" strokeWidth={2} activeDot={{ r: 8 }} dot={false} type="monotone" name='Price' />

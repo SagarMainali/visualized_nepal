@@ -25,7 +25,7 @@ export default function MarketInsightsDashboardCard({
             text: `Gold prices ${(goldSummary?.percentChange ?? 0) > 0
                 ? "increased"
                 : "decreased"} 
-                by ${Math.abs(goldSummary?.percentChange ?? 0).toFixed(2)}% the previous recorded price.`,
+                by ${Math.abs(goldSummary?.percentChange ?? 0).toFixed(2)}% from the previous recorded price.`,
         },
 
         {
